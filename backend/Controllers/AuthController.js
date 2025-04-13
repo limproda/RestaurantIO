@@ -2,28 +2,35 @@ import User from "../Models/UserModel.js";
 import bcrypt from "bcrypt";
 import { createSecretToken } from "../util/SecretToken.js";
 
+// Definición de la función Signup para manejar el registro de nuevos usuarios
 export const Signup = async (req, res, next) => {
     try {
-      const {
+      // Desgranamos la información recibidida y autocompletamos el resto de campos
+      const { email, password, name, lastName, phone } = req.body;
+      const newUser = {
         email,
         password,
         name,
         lastName,
-        role,
         phone,
-        bornDate,
-        createAt,
-        employeesNumber,
-        hireDate,
-        paymentDate,
-        timeRecord,
-        payRoll,
-      } = req.body;
+        role: "Empleado",
+        bornDate: null,
+        createAt: new Date(),
+        employeesNumber: null,
+        hireDate: null,
+        paymentDate: null,
+        timeRecord: [],
+        payRoll: [],
+      };
+
+      //Si el usuario existe, devuelvo un mensaje de error
       const existingUser = await User.findOne({ email });
       if (existingUser) {
-        return res.json({ message: "User already exists" });
+        return res.json({ message: "El usuario ya está registrado" });
       }
-      const user = await User.create({ email, password, name, lastName, role, phone, bornDate, createAt, employeesNumber, hireDate, paymentDate, timeRecord, payRoll });
+
+      //Si el usuario no existe, encripta la contraseña y creo el nuevo usuario
+      const user = await User.create(newUser);
       const token = createSecretToken(user._id);
       res.cookie("token", token, {
         withCredentials: true,
@@ -31,7 +38,7 @@ export const Signup = async (req, res, next) => {
       });
       res
         .status(201)
-        .json({ message: "User signed up successfully", success: true, user });
+        .json({ message: "Cuenta creada con éxito", success: true, user });
       next();
     } catch (error) {
       console.error(error);
@@ -39,28 +46,31 @@ export const Signup = async (req, res, next) => {
     }
   };
 
+  // Definición de la función Login para manejar el inicio de sesión de usuarios
   export const Login = async (req, res, next) => {
     try {
       const { email, password } = req.body;
       if(!email || !password ){
-        return res.status(400).json({message:'All fields are required'})
+        return res.status(400).json({message:'Todos los campos son requeridos'}) // Error si no recibimos todos los campos
       }
       const user = await User.findOne({ email });
       if(!user){
-        return res.json({message:'Incorrect password or email' }) 
+        return res.json({message:'Usuario no encontrado o incorrecto' }) // Error si el usuario no existe
       }
       const auth = await bcrypt.compare(password,user.password)
       if (!auth) {
-        return res.json({message:'Incorrect password or email' }) 
+        return res.json({message:'Contraseña incorrecta' })  // Error si la contraseña no coincide
       }
        const token = createSecretToken(user._id);
        res.cookie("token", token, {
          withCredentials: true,
          httpOnly: false,
        });
-       res.status(201).json({ message: "User logged in successfully", success: true });
+       // Si el usuario existe y la contraseña es correcta, se devuelve un mensaje de éxito
+       res.status(201).json({ message: "Inicio de sesión correcto", success: true }); 
        next()
     } catch (error) {
-      console.error(error);
+      // Si ocurre un error inesperado, se captura y se devuelve un mensaje de error
+      console.error("Ha ocurrido un error inesperado, inténtalo de nuevo");
     }
   }

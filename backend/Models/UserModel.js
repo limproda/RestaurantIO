@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+// Definición del esquema de usuario
 const userSchema = new mongoose.Schema({
       email: {
         type: String,
@@ -57,15 +58,16 @@ const userSchema = new mongoose.Schema({
       }]
     });
     
+// Método para comparar contraseñas
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
-
+  // Si la contraseña no ha sido modificada, continuar
   try {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
+    const salt = await bcrypt.genSalt(10); // Generación de un salt con 10 rondas
+    this.password = await bcrypt.hash(this.password, salt); // Hasheo de la contraseña con el salt
+    next(); // Continuamos con el siguiente middleware
   } catch (err) {
-    return next(err);
+    return next(err); // Si hay un error, lo pasamos al siguiente middleware
   }
 });
 

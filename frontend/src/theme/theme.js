@@ -24,7 +24,7 @@ const theme = createTheme({
     },
     background: {
       default: '#f5f5f5', // Color de fondo por defecto
-      gradient: 'linear-gradient(to right, #4C6EF5, #B197FC)', // Color de fondo degradado
+      gradient: 'linear-gradient(to right, #4C6EF5, #B197FC)', // Color de fondo degradado por defecto
     },
   },
   // Definición de la tipografía
