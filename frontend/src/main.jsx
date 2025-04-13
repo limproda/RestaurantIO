@@ -1,10 +1,18 @@
-import { StrictMode } from 'react'
+import React from 'react'
 import { createRoot } from 'react-dom/client'
-import './styles/index.css'
+import { BrowserRouter } from 'react-router-dom'
+import Theme from './theme/theme.js'
+import { ThemeProvider } from '@mui/material/styles'
 import App from './App.jsx'
+import './styles/main.css'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+    // El themeProvider permite aplicar un tema a toda la aplicación
+    <ThemeProvider theme={Theme}>
+      {/* El BrowserRouter permite manejar las rutas de la aplicación */}
+      <BrowserRouter>
+        {/* El App es el componente principal de la aplicación */}
+        <App />
+      </BrowserRouter>
+    </ThemeProvider>
 )

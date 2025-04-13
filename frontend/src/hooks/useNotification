@@ -1,0 +1,24 @@
+import { useState } from "react";
+
+// Hook para gestionar las notificaciones de la aplicación
+const useNotification = () => {
+  const [notification, setNotification] = useState({
+    open: false, // Indica si la notificación es visible
+    severity: "success", // Indica el nivel de notificación, puede ser: "success", "error", "warning", "info"
+    message: "", //Almacena el mensaje
+  });
+
+  // Función para mostrar la notificación
+  const showNotification = (severity, message) => {
+    setNotification({ open: true, severity, message });
+  };
+
+  // Función para cerrar la notificación
+  const handleClose = () => {
+    setNotification((prev) => ({ ...prev, open: false }));
+  };
+
+  return { notification, showNotification, handleClose };
+};
+
+export default useNotification;
