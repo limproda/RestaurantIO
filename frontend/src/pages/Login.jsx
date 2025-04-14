@@ -7,6 +7,7 @@ import AnimatedGradientBox from "../components/layout/AnimatedgradiendBox.jsx";
 import { API_URL } from "../config";
 import { useMediaQuery, useTheme } from "@mui/material";
 import logo from "../assets/images/logo.png";
+import { useAuth } from "../contexts/AuthContext.jsx";
 
 // Importación de componentes de MUI
 import Visibility from '@mui/icons-material/Visibility';
@@ -32,6 +33,7 @@ const Login = () => {
   });
   const { email, password } = inputValue;
   const { notification, showNotification, handleClose } = useNotification();
+  const { setUser } = useAuth(); // Contexto de autenticación para obtener la información del usuario
 
   // Estado para controlar la visibilidad de la contraseña
   const [showPassword, setShowPassword] = useState(false);
@@ -68,36 +70,36 @@ const Login = () => {
         { ...inputValue },
         { withCredentials: true }
       );
-      const { success, message } = data;
-      // Si la respuesta es exitosa, se muestra la notificación de éxito y se redirige al usuario a "/"
+      const { success, message, token, user } = data;
+      // Si la respuesta es exitosa, se muestra la notificación de éxito y se redirige al usuario
       if (success) {
-        handleSuccess(message);
+        showNotification("success", message);
+        localStorage.setItem("token", token); // Se guarda el token
+        localStorage.setItem("user", JSON.stringify(user)); // Se guarda TODA la información del usuario
+        setUser(user); // Se actualiza el contexto con la información del usuario
+
         setTimeout(() => {
-          navigate("/");
-        }, 1000);
+        // Se redirige según el rol
+        if (user.role.toLowerCase() === "administrador") {
+          navigate('/admin/dashboard');
+        } else if (user.role.toLowerCase() === "empleado") {
+          navigate('/employee/dashboard');
+        } else {
+          navigate('/notfound'); // Si el rol no es válido, se redirige a una página de error
+        }
+      }, 500);
       } else {
-        // Si la creación falla, muestra la notificación de error
-        handleError(message);
+        showNotification("error", message); // Si la respuesta es errónea, se muestra el error
       }
     } catch (error) {
-      // Si ocurre algún error, muestra la notificación de error
       console.log(error);
-      handleError("Ha ocurrido un error inesperado, inténtalo de nuevo");
+      showNotification("error", "Ha ocurrido un error inesperado, inténtalo de nuevo");
     }
     // Reinicia los valores de los inputs después de enviar el formulario
     setInputValue({
       email: "",
       password: "",
     });
-  };
-
-  // Funciones para manejar los mensajes de error y éxito
-  const handleError = (msg) => {
-    showNotification("error", msg);
-  };
-
-  const handleSuccess = (msg) => {
-    showNotification("success", msg);
   };
 
   return (
@@ -121,7 +123,7 @@ const Login = () => {
             <Typography component="h1" variant="h4" gutterBottom>
               Iniciar Sesión
             </Typography>
-            { /* Gestión de correo */ }
+            { /* Gestión de correo */}
             <TextField
               type="email"
               name="email"

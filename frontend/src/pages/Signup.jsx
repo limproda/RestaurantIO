@@ -62,21 +62,13 @@ const Signup = () => {
     });
   };
 
-  // Función para manejar los mensajes de error y 'exito
-  const handleError = (err) => {
-    showNotification("error", err);
-  };
-  const handleSuccess = (msg) => {
-    showNotification("success", msg);
-  };
-
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Verifica si las contraseñas coinciden
     if (inputValue.password !== inputValue.confirmPassword) {
-      handleError("Las contraseñas no coinciden");
+      showNotification("error", "Las contraseñas no coinciden");
       return;
     }
 
@@ -92,17 +84,17 @@ const Signup = () => {
       const { success, message } = data;
       // Si la respuesta es exitosa, se muestra la notificación de éxito y se redirige al usuario a "/"
       if (success) {
-        handleSuccess(message);
+        showNotification("success", message);
         setTimeout(() => {
           navigate("/");
         }, 500);
       } else {
         // Si la creación falla, muestra la notificación de error
-        handleError(message);
+        showNotification("error", message);
       }
     } catch (error) {
       // Si ocurre algún error, muestra la notificación de error
-      handleError(error.message);
+      showNotification("error", error.message);
     }
     // Reinicia los valores de los inputs después de enviar el formulario
     setInputValue({
