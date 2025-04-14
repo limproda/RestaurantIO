@@ -13,7 +13,7 @@ export const Signup = async (req, res, next) => {
       name,
       lastName,
       phone,
-      role: "Empleado",
+      role: "empleado",
       bornDate: null,
       createAt: new Date(),
       employeesNumber: null,

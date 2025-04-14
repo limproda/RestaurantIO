@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Home, Login, Signup, AdminDashboard, EmployeeDashboard, NotFound } from '../pages';
+import { Login, Signup, AdminDashboard, EmployeeDashboard, NotFound } from '../pages';
 import AdminRoute from './AdminRoute';
 import EmployeeRoute from './EmployeeRoute';
 import { useAuth } from '../contexts/AuthContext';

@@ -8,14 +8,14 @@ import App from './App.jsx'
 import './styles/main.css'
 
 createRoot(document.getElementById('root')).render(
-    // El themeProvider permite aplicar un tema a toda la aplicación
-    <ThemeProvider theme={Theme}>
-      {/* El BrowserRouter permite manejar las rutas de la aplicación */}
-      <BrowserRouter>
+  // El themeProvider permite aplicar un tema a toda la aplicación
+  <ThemeProvider theme={Theme}>
+    {/* El BrowserRouter permite manejar las rutas de la aplicación */}
+    <BrowserRouter>
+      <AuthProvider>
         {/* El App es el componente principal de la aplicación */}
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </BrowserRouter>
-    </ThemeProvider>
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
+  </ThemeProvider>
 )
