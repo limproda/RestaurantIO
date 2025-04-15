@@ -15,11 +15,6 @@ mongoose
   .then(() => console.log("MongoDB connected successfully"))
   .catch((err) => console.error(err));
 
-// La app escucha en el puerto definido 
-app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
-
 // Middleware para permitir el acceso a la API desde el frontend
 app.use(
   cors({
@@ -35,3 +30,8 @@ app.use(cookieParser());
 app.use(express.json());
 // Rutas de autenticación
 app.use("/", AuthRoute);
+
+// La app escucha en el puerto definido 
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});

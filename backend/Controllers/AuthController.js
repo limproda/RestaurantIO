@@ -34,12 +34,12 @@ export const Signup = async (req, res, next) => {
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
       withCredentials: true,
-      httpOnly: false,
+      httpOnly: true,
+      path: "/",
     });
     res
       .status(201)
       .json({ message: "Cuenta creada con éxito", success: true, user });
-    next();
   } catch (error) {
     console.error(error);
     next(error);
@@ -65,7 +65,8 @@ export const Login = async (req, res, next) => {
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
       withCredentials: true,
-      httpOnly: false,
+      httpOnly: true,
+      path: "/",
     });
     // Si el usuario existe y la contraseña es correcta, se devuelve un mensaje de éxito
     res.status(201).json({
@@ -84,7 +85,6 @@ export const Login = async (req, res, next) => {
         bornDate: user.bornDate,
       },
     });
-    next();
   } catch (error) {
     // Si ocurre un error inesperado, se captura y se devuelve un mensaje de error
     console.error("Ha ocurrido un error inesperado, inténtalo de nuevo");

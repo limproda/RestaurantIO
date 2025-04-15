@@ -12,12 +12,19 @@ export default function AppRoutes() {
 
   return (
     <Routes>
+      {/* Ruta raíz para redireccionar segun el estado del usuario */}
       <Route
-        path="/"
+        path="/login"
         element={
-          !user ? <Login /> :
-            user.role.toLowerCase() === "administrador" ? <Navigate to="/admin/dashboard" replace /> :
+          user ? (
+            user.role.trim().toLowerCase() === "administrador" ? (
+              <Navigate to="/admin/dashboard" replace />
+            ) : (
               <Navigate to="/employee/dashboard" replace />
+            )
+          ) : (
+            <Login />
+          )
         }
       />
       {/* Rutas públicas */}
