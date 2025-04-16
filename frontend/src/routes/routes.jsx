@@ -1,17 +1,37 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Login, Signup, AdminDashboard, EmployeeDashboard, NotFound } from '../pages';
-import AdminRoute from './AdminRoute';
-import EmployeeRoute from './EmployeeRoute';
-import { useAuth } from '../contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import {
+  Login,
+  Signup,
+  AdminDashboard,
+  EmployeeDashboard,
+  NotFound,
+} from "../pages";
+import AdminRoute from "./AdminRoute";
+import EmployeeRoute from "./EmployeeRoute";
+import { useAuth } from "../contexts/AuthContext";
+import { Navigate } from "react-router-dom";
 
 export default function AppRoutes() {
-
   const { user } = useAuth();
 
   return (
     <Routes>
+      {/* Ruta raíz que redirige según el estado de autenticación */}
+      <Route
+        path="/"
+        element={
+          user ? (
+            user.role.trim().toLowerCase() === "administrador" ? (
+              <Navigate to="/admin/dashboard" replace />
+            ) : (
+              <Navigate to="/employee/dashboard" replace />
+            )
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
       {/* Ruta raíz para redireccionar segun el estado del usuario */}
       <Route
         path="/login"

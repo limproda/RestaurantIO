@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // Importación de la imagen del logo
-import logo from "../../assets/images/logo.png";
+import restaurantioLogo from "../../assets/images/logo.png";
 
 // Importación de componentes de MUI
 import {
@@ -32,7 +32,7 @@ const LoginForm = ({
             {/* Formulario de creación de cuenta */}
             < Stack component="form" spacing={4} onSubmit={handleSubmit} >
                 {/* Logo de la aplicación */}
-                < img src={logo} alt="Logo" style={{ maxWidth: '300px', width: '100%', margin: 'auto' }} />
+                < img src={restaurantioLogo} alt="Logo de Restaurantio" style={{ maxWidth: '300px', width: '100%', margin: 'auto' }} />
                 { /* Título del formulario */}
                 <Typography component="h1" variant="h4" gutterBottom>
                     Iniciar Sesión
