@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { AuthContext } from '../../contexts/AuthContext';
+import TopbarContainer from '../../components/TopbarContainter';
+import { Toolbar } from '@mui/material';
 
 function AdminDashboard() {
     const navigate = useNavigate();
@@ -18,6 +20,8 @@ function AdminDashboard() {
 
     return (
         <>
+            <TopbarContainer></TopbarContainer>
+            <Toolbar />
             <h1>Admin Dashboard</h1>
             <button onClick={Logout}>LOGOUT</button>
         </>

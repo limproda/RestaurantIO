@@ -9,7 +9,7 @@ export const Signup = async (req, res, next) => {
     const { email, password, name, lastName, phone } = req.body;
     const newUser = {
       email,
-      password,
+      password: await bcrypt.hash(password, 10), // Encriptamos la contraseña
       name,
       lastName,
       phone,
@@ -24,25 +24,32 @@ export const Signup = async (req, res, next) => {
       payRoll: [],
     };
 
-    //Si el usuario ya existe, devuelve un mensaje de error
+    // Si el usuario ya existe, devuelve un mensaje de error
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.json({ message: "El usuario ya está registrado" });
+      return res
+        .status(409)
+        .json({ success: false, message: "El usuario ya está registrado" });
     }
 
-    //Si el usuario no existe, encripta la contraseña y crea el nuevo usuario
-    const user = await User.create(newUser);
-    const token = createSecretToken(user._id);
+    // Si el usuario no existe, creamos el nuevo usuario
+    const savedUser = await User.create(newUser);
+    const token = createSecretToken(savedUser._id);
     res.cookie("token", token, {
       withCredentials: true,
       httpOnly: true,
       path: "/",
     });
-    res
+
+    // Preparamos el objeto pero sin contraseña
+    const userObj = savedUser.toObject();
+    delete userObj.password;
+
+    return res
       .status(201)
-      .json({ message: "Cuenta creada con éxito", success: true, user });
+      .json({ success: true, message: "Cuenta creada con éxito", user: userObj });
   } catch (error) {
-    console.error(error);
+    console.error("Error al crear la cuenta: ", error);
     next(error);
   }
 };
@@ -52,15 +59,21 @@ export const Login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(400).json({ message: 'Todos los campos son requeridos' }) // Error si no recibimos todos los campos
+      return res
+        .status(400)
+        .json({ success: false, message: "Todos los campos son requeridos" }); // Error si no recibimos todos los campos
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return res.json({ message: 'Usuario no encontrado o incorrecto' }) // Error si el usuario no existe
+      return res
+        .status(401)
+        .json({ success: false, message: "Usuario no encontrado o incorrecto" }); // Error si el usuario no existe
     }
-    const auth = await bcrypt.compare(password, user.password)
+    const auth = await bcrypt.compare(password, user.password);
     if (!auth) {
-      return res.json({ message: 'Contraseña incorrecta' })  // Error si la contraseña no coincide
+      return res
+        .status(401)
+        .json({ success: false, message: "Contraseña incorrecta" }); // Error si la contraseña no coincide
     }
     // Si el usuario existe y la contraseña es correcta, se crea un token de sesión
     const token = createSecretToken(user._id);
@@ -69,25 +82,20 @@ export const Login = async (req, res, next) => {
       httpOnly: true,
       path: "/",
     });
+
+    // Preparamos el objeto pero sin contraseña
+    const userObj = user.toObject();
+    delete userObj.password;
+
     // Si el usuario existe y la contraseña es correcta, se devuelve un mensaje de éxito
-    res.status(201).json({
-      message: "Inicio de sesión correcto",
+    return res.status(201).json({
       success: true,
-      // No incluimos la contraseña en la respuesta para mayor seguridad
-      user: {
-        name: user.name,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phone,
-        role: user.role,
-        employeesNumber: user.employeesNumber,
-        hireDate: user.hireDate,
-        paymentDate: user.paymentDate,
-        bornDate: user.bornDate,
-      },
+      message: "Inicio de sesión correcto",
+      user: userObj, // Incluimos todo excepto la contraseña
     });
   } catch (error) {
     // Si ocurre un error inesperado, se captura y se devuelve un mensaje de error
-    console.error("Ha ocurrido un error inesperado, inténtalo de nuevo");
+    console.error("Ha ocurrido un error inesperado, inténtalo de nuevo: ", error);
+    next(error);
   }
-}
+};
