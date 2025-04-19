@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../config";
-import { useAuth } from "../contexts/AuthContext.jsx";
+import { API_URL } from "../../config/config";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
 export const useLogin = () => {
   // Hooks de React y definición de variables

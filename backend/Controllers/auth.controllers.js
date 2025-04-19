@@ -1,6 +1,6 @@
 import User from "../Models/UserModel.js";
 import bcrypt from "bcrypt";
-import { createSecretToken } from "../util/SecretToken.js";
+import { createSecretToken } from "../util/token.util.js";
 
 // Definición de la función Signup para manejar el registro de nuevos usuarios
 export const Signup = async (req, res, next) => {
@@ -19,17 +19,18 @@ export const Signup = async (req, res, next) => {
       employeesNumber: null,
       hireDate: null,
       paymentDate: null,
+      profilePictureUrl: null,
       timeRecord: [],
       payRoll: [],
     };
 
-    //Si el usuario ya existe, devuelvo un mensaje de error
+    //Si el usuario ya existe, devuelve un mensaje de error
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.json({ message: "El usuario ya está registrado" });
     }
 
-    //Si el usuario no existe, encripta la contraseña y creo el nuevo usuario
+    //Si el usuario no existe, encripta la contraseña y crea el nuevo usuario
     const user = await User.create(newUser);
     const token = createSecretToken(user._id);
     res.cookie("token", token, {

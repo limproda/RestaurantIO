@@ -3,17 +3,11 @@ import mongoose from "mongoose";
 import cors from "cors";
 import {} from 'dotenv/config';
 import cookieParser from "cookie-parser";
-import AuthRoute from "./Routes/AuthRoute.js";
+import AuthRoute from "./Routes/auth.routes.js";
+import { PORT, FRONT_PORT, MONGO_URI, TOKEN_KEY, } from "./config/index.js"
 
 // Carga de variables de entorno
-const { MONGO_URI, PORT, FRONT_PORT } = process.env;
 const app = express();
-
-// Conexión a la base de datos MongoDB
-mongoose
-  .connect(MONGO_URI)
-  .then(() => console.log("MongoDB connected successfully"))
-  .catch((err) => console.error(err));
 
 // Middleware para permitir el acceso a la API desde el frontend
 app.use(
@@ -35,3 +29,9 @@ app.use("/", AuthRoute);
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
+
+// Conexión a la base de datos MongoDB
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log("MongoDB connected successfully"))
+  .catch((err) => console.error(err));

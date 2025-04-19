@@ -46,7 +46,10 @@ const userSchema = new mongoose.Schema({
       paymentDate: {                 
         type: Date
       },
-    
+      profilePictureUrl: {
+        type: String,
+        default: null
+      },
       timeRecord: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'TimeRecord'

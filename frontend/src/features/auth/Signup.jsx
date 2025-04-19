@@ -1,9 +1,8 @@
 import React from "react";
 import { Container, Snackbar, Alert } from "@mui/material";
-import { useSignup } from "../hooks/useSignup.jsx";
-import SignupForm from "../components/common/SignupForm.jsx";
-import AnimatedGradientBox from "../components/layout/AnimatedGradiendBox.jsx";
-
+import { useSignup } from "./useSignup.jsx";
+import SignupForm from "./SignupForm.jsx";
+import AnimatedGradientBox from '../../components/AnimatedGradiendBox.jsx';
 const Signup = () => {
   const {
     inputValue,

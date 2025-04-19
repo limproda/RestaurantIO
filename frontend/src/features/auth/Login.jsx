@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Container } from '@mui/material';
-import { useLogin } from '../hooks/useLogin';
-import LoginForm from '../components/common/LoginForm.jsx';
-import AnimatedGradientBox from '../components/layout/AnimatedGradiendBox.jsx';
+import { useLogin } from './useLogin.js';
+import LoginForm from './LoginForm.jsx';
+import AnimatedGradientBox from '../../components/AnimatedGradiendBox.jsx';
 import { Alert, Snackbar } from '@mui/material';
 
 const Login = () => {

@@ -5,7 +5,7 @@ import Theme from './theme/theme.js'
 import { ThemeProvider } from '@mui/material/styles'
 import { AuthProvider } from './contexts/AuthContext.jsx'
 import App from './App.jsx'
-import './styles/main.css'
+import './styles/global.css'
 
 createRoot(document.getElementById('root')).render(
   // El themeProvider permite aplicar un tema a toda la aplicación

@@ -4,7 +4,7 @@ import {
   Stack, Paper, Typography, TextField, Button, InputAdornment, IconButton, Link as MuiLink
 } from "@mui/material";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import logo from "../../assets/images/logo.png";
+import restaurantioLogo from "../../assets/images/logo.png";
 
 const SignupForm = ({
   inputValue,
@@ -21,7 +21,7 @@ const SignupForm = ({
   <Paper elevation={3} sx={{ p: 4, width: "100%" }}>
     <Stack component="form" spacing={2} onSubmit={handleSubmit}>
       {/* Logo de la aplicación */}
-      <img src={logo} alt="Logo" style={{ maxWidth: '300px', width: '100%', margin: 'auto' }} />
+      <img src={restaurantioLogo} alt="Logo de Restaurantio" style={{ maxWidth: '300px', width: '100%', margin: 'auto' }} />
       {/* Título del formulario */}
       <Typography component="h1" variant="h4">Crear Cuenta de Empleado</Typography>
       <Typography>Si eres un empleado nuevo, completa el formulario</Typography>

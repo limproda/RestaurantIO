@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../config";
+import { API_URL } from "../../config/config";
 
 export const useSignup = () => {
   // Hooks de React y definición de variables
@@ -61,7 +61,7 @@ export const useSignup = () => {
       // Si la respuesta es exitosa, se muestra la notificación de éxito y se redirige al usuario a "/"
       if (success) {
         setNotification({ open: true, severity: 'success', message });
-        setTimeout(() => navigate("/"), 500);
+        setTimeout(() => navigate("/"), 1500);
       } else {
         // Si la creación falla, muestra la notificación de error
         setNotification({ open: true, severity: 'error', message });
