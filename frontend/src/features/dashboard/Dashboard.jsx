@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { AuthContext } from '../../contexts/AuthContext';
-import TopbarContainer from '../../components/TopbarContainter';
 import { Toolbar } from '@mui/material';
+import MainLayout from '../../layout/MainLayout'
 
-function EmployeeDashboard() {
+
+function AdminDashboard() {
     const navigate = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies(["token"]);
     const { setUser } = useContext(AuthContext);
@@ -20,12 +21,10 @@ function EmployeeDashboard() {
 
     return (
         <>
-            <Toolbar></Toolbar>
-            <TopbarContainer></TopbarContainer>
-            <h1>Employee Dashboard</h1>
+            <h1>Panel de Control</h1>
             <button onClick={Logout}>LOGOUT</button>
         </>
     );
 }
 
-export default EmployeeDashboard;
+export default AdminDashboard;

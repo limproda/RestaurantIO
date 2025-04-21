@@ -1,24 +1,27 @@
 import React, { createContext, useState, useEffect } from "react";
 
+// Creamos el contexto
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedUser = JSON.parse(localStorage.getItem("user")); // Buscamos si existe un token de usuario guardado en localStorage
     if (storedUser) {
-      setUser(storedUser);
+      setUser(storedUser); // Si exsite, lo cargamos al estado 
     }
-  }, []);
+  }, []); // Lo ejecutamos una vez
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    // Devolvemos user y la función de setUser
+    <AuthContext.Provider value={{ user, setUser }}> 
       {children}
     </AuthContext.Provider>
   );
 };
 
+// Hook personalizado para usar useAuth en lugar de useContext. Son equivalentes
 export const useAuth = () => {
   return React.useContext(AuthContext);
 };

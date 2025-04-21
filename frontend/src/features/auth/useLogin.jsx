@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL } from "../../config/config";
+import { API_URL } from "../../config/config.js";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 
 export const useLogin = () => {
@@ -65,8 +65,7 @@ export const useLogin = () => {
       // Si la respuesta es exitosa, se muestra la notificación de éxito y se redirige al usuario
       if (success) {
         setNotification({ open: true, severity: 'success', message });
-        localStorage.setItem("token", token); // Se guarda el token
-        localStorage.setItem("user", JSON.stringify(user)); // Se guarda TODA la información del usuario
+        localStorage.setItem("user", JSON.stringify(user)); // Se guarda TODA la información del usuario en un token
         setUser(user); // Se actualiza el contexto con la información del usuario
 
         setTimeout(() => {
@@ -79,12 +78,11 @@ export const useLogin = () => {
             navigate('/notfound'); // Si el rol no es válido, se redirige a una página de error
           }
         }, 500);
-      } else {
-        setNotification({ open: true, severity: 'error', message }); // Si la respuesta es errónea, se muestra el error
       }
     } catch (error) {
-      console.log(error);
-      setNotification({ open: true, severity: 'error', message: errorMessage });
+      console.log("Login error:", error);
+      // Mandamos el error de la API
+      setNotification({ open: true, severity: 'error', message: `${error.response?.data?.message}`});
     } finally {
       // Reinicia los valores de los inputs después de enviar el formulario
       setInputValue({

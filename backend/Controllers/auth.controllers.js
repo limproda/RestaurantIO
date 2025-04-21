@@ -9,7 +9,7 @@ export const Signup = async (req, res, next) => {
     const { email, password, name, lastName, phone } = req.body;
     const newUser = {
       email,
-      password: await bcrypt.hash(password, 10), // Encriptamos la contraseña
+      password, // En este punto la contraseña ya está encriptada
       name,
       lastName,
       phone,
@@ -95,7 +95,7 @@ export const Login = async (req, res, next) => {
     });
   } catch (error) {
     // Si ocurre un error inesperado, se captura y se devuelve un mensaje de error
-    console.error("Ha ocurrido un error inesperado, inténtalo de nuevo: ", error);
+    console.error("Ha ocurrido un error inesperado, inténtalo de nuevo: ", error.message);
     next(error);
   }
 };
