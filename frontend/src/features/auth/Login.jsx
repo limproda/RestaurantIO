@@ -3,7 +3,6 @@ import { Container } from '@mui/material';
 import { useLogin } from './useLogin';
 import LoginForm from './LoginForm';
 import AnimatedGradientBox from '../../components/AnimatedGradiendBox.jsx';
-import { Alert, Snackbar } from '@mui/material';
 
 const Login = () => {
   // Destructuración de hooks y variables
@@ -13,8 +12,6 @@ const Login = () => {
     togglePasswordVisibility,
     handleOnChange,
     handleSubmit,
-    notification,
-    handleCloseNotification,
   } = useLogin();
 
   return (
@@ -32,17 +29,6 @@ const Login = () => {
           handleOnChange={handleOnChange}
           handleSubmit={handleSubmit}
         />
-        {/* Notificaciones para el usuario */}
-        <Snackbar
-          open={notification.open}
-          autoHideDuration={5000}
-          onClose={handleCloseNotification}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <Alert onClose={handleCloseNotification} severity={notification.severity} variant="filled">
-            {notification.message}
-          </Alert>
-        </Snackbar>
       </Container>
     </AnimatedGradientBox>
   );

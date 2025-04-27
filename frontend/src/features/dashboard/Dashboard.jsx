@@ -6,7 +6,7 @@ import { Toolbar } from '@mui/material';
 import MainLayout from '../../layout/MainLayout'
 
 
-function AdminDashboard() {
+function Dashboard() {
     const navigate = useNavigate();
     const [cookies, setCookie, removeCookie] = useCookies(["token"]);
     const { setUser } = useContext(AuthContext);
@@ -27,4 +27,4 @@ function AdminDashboard() {
     );
 }
 
-export default AdminDashboard;
+export default Dashboard;

@@ -3,19 +3,18 @@ import { Container, Snackbar, Alert } from "@mui/material";
 import { useSignup } from "./useSignup.jsx";
 import SignupForm from "./SignupForm.jsx";
 import AnimatedGradientBox from '../../components/AnimatedGradiendBox.jsx';
+
 const Signup = () => {
   const {
     inputValue,
     showPassword,
     showConfirmPassword,
-    notification,
     handleOnChange,
     togglePasswordVisibility,
     toggleConfirmPasswordVisibility,
     handleMouseDownPassword,
     handleMouseUpPassword,
     handleSubmit,
-    handleCloseNotification
   } = useSignup();
 
   return (
@@ -35,16 +34,6 @@ const Signup = () => {
           handleMouseUpPassword={handleMouseUpPassword}
           handleSubmit={handleSubmit}
         />
-        {/* Notificaciones para el usuario */}
-        <Snackbar
-          open={notification.open}
-          autoHideDuration={5000}
-          onClose={handleCloseNotification}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-          <Alert severity={notification.severity} variant="filled" onClose={handleCloseNotification}>
-            {notification.message}
-          </Alert>
-        </Snackbar>
       </Container>
     </AnimatedGradientBox>
   );

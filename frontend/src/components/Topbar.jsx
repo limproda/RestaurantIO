@@ -84,7 +84,7 @@ export default function Topbar({}) {
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Box sx={{ textAlign: "right", mr: 2 }}>
                   <Typography variant="subtitle2">
-                    {user?.name} {user?.lastName}{" "}
+                    {user?.fullName || "Invitado"}
                     {/* Nombre completo del usuario */}
                   </Typography>
                   <Typography

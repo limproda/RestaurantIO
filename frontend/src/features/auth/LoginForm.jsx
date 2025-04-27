@@ -30,7 +30,7 @@ const LoginForm = ({
         // Paper de MUI que contiene el formulario con un borde y sombra 
         <Paper elevation={10} sx={{ p: 4, width: '100%' }}>
             {/* Formulario de creación de cuenta */}
-            < Stack component="form" spacing={4} onSubmit={handleSubmit} >
+            < Stack component="form" spacing={3} onSubmit={handleSubmit} >
                 {/* Logo de la aplicación */}
                 < img src={restaurantioLogo} alt="Logo de Restaurantio" style={{ maxWidth: '300px', width: '100%', margin: 'auto' }} />
                 { /* Título del formulario */}

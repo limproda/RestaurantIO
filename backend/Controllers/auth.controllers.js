@@ -63,7 +63,7 @@ export const Login = async (req, res, next) => {
         .status(400)
         .json({ success: false, message: "Todos los campos son requeridos" }); // Error si no recibimos todos los campos
     }
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("+password");
     if (!user) {
       return res
         .status(401)

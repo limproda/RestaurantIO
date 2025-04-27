@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../config/config.js";
 import { useAuth } from "../../contexts/AuthContext.jsx";
+import { useNotification } from "../../components/NotificationProvider";
 
 export const useLogin = () => {
   // Hooks de React y definición de variables
   const navigate = useNavigate();
   const { setUser } = useAuth(); // Contexto de autenticación para obtener la información del usuario
+  const { notify } = useNotification();
 
   const [inputValue, setInputValue] = useState({
     email: "",
@@ -16,17 +18,6 @@ export const useLogin = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  // Definición de la notificación
-  const [notification, setNotification] = useState({
-    open: false,
-    severity: 'success',
-    message: '',
-  });
-
-  // Manejo de la notificación
-  const handleCloseNotification = () => {
-    setNotification((prev) => ({ ...prev, open: false }));
-  };
   // Manejadores de eventos del password
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -42,10 +33,8 @@ export const useLogin = () => {
   // Función para manejar el cambio de los inputs
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setInputValue({
-      ...inputValue,
-      [name]: value,
-    });
+    setInputValue(prev => ({ ...prev, [name]: value }));
+
   };
 
   // Función para manejar el envío del formulario
@@ -60,29 +49,32 @@ export const useLogin = () => {
         { withCredentials: true }
       );
 
-      const { success, message, token, user } = data;
+      const { success, message, user } = data;
 
       // Si la respuesta es exitosa, se muestra la notificación de éxito y se redirige al usuario
       if (success) {
-        setNotification({ open: true, severity: 'success', message });
-        localStorage.setItem("user", JSON.stringify(user)); // Se guarda TODA la información del usuario en un token
+        notify("success", message);
+        localStorage.setItem("user", JSON.stringify(user)); // Se guarda TODA la información del usuario
         setUser(user); // Se actualiza el contexto con la información del usuario
 
         setTimeout(() => {
           // Se redirige según el rol
           if (user.role.toLowerCase() === "administrador") {
-            navigate('/admin/dashboard');
+            navigate("/admin/dashboard");
           } else if (user.role.toLowerCase() === "empleado") {
-            navigate('/employee/dashboard');
+            navigate("/employee/dashboard");
           } else {
-            navigate('/notfound'); // Si el rol no es válido, se redirige a una página de error
+            navigate("/notfound"); // Si el rol no es válido, se redirige a una página de error
           }
         }, 500);
+      } else {
+        notify("error", message)
       }
     } catch (error) {
-      console.log("Login error:", error);
-      // Mandamos el error de la API
-      setNotification({ open: true, severity: 'error', message: `${error.response?.data?.message}`});
+        console.error("Login error:", error);
+        const backendMsg = error.response?.data?.message ?? error.message;
+        notify("error", `${backendMsg}`);
+
     } finally {
       // Reinicia los valores de los inputs después de enviar el formulario
       setInputValue({
@@ -100,8 +92,5 @@ export const useLogin = () => {
     handleMouseUpPassword,
     handleOnChange,
     handleSubmit,
-    notification,
-    handleCloseNotification,
   };
-
 };

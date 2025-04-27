@@ -10,11 +10,13 @@ import { Login, Signup } from "../pages";
 // Páginas de layout / genéricas
 import NotFound from "../pages/NotFound";
 import Dashboard from "../features/dashboard/Dashboard";
+import UserProfile from "../features/userProfile/userProfile"
 //import Settings from '../pages/AdminSettings';
 
 // Admin
-//import AdminEmployees  from '../pages/AdminEmployees';
-//import AdminPayrolls   from '../pages/AdminPayrolls';
+import Employees from "../features/employees/Employees";
+import EmployeesEdit from "../features/employees/editEmployee/employeeEdit";
+import NewEmployee from "../features/employees/newEmployee/newEmployee";
 
 // Empleado
 //import EmployeeWorkingTime    from '../pages/EmployeeWorkingTime';
@@ -65,7 +67,7 @@ export default function AppRoutes() {
           </PublicRoute>
         }
       />
-
+      
       {/* Rutas del administrador */}
       <Route
         path="/admin"
@@ -77,9 +79,12 @@ export default function AppRoutes() {
       >
         {/* Aquí añadimos todas las rutas del administrador*/}
         <Route path="dashboard" element={<Dashboard />} />
-        {/* Resto de rutas del administrador */}
+        <Route path="employees" element={<Employees />} />
+        <Route path="employees/edit/:id" element={<EmployeesEdit />} />
+        <Route path="employees/new" element={<NewEmployee />} />
+        <Route path="settings" element={<UserProfile />} />
       </Route>
-
+      
       {/* Rutas del empleado */}
       <Route
         path="/employee"

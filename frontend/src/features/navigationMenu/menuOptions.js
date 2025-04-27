@@ -16,4 +16,3 @@ export const menuOptions = {
       { name: "Ajustes",        icon: "SettingsIcon",         path: "/employee/settings" },
     ],
   };
-  

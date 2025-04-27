@@ -9,9 +9,17 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user")); // Buscamos si existe un token de usuario guardado en localStorage
     if (storedUser) {
-      setUser(storedUser); // Si exsite, lo cargamos al estado 
+      setUser(storedUser); // Si existe, lo cargamos al estado 
     }
   }, []); // Lo ejecutamos una vez
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
+  }, [user]);
 
   return (
     // Devolvemos user y la función de setUser

@@ -4,6 +4,9 @@ import cors from "cors";
 import {} from 'dotenv/config';
 import cookieParser from "cookie-parser";
 import AuthRoute from "./Routes/auth.routes.js";
+import EmployeesRoutes from "./Routes/employees.routes.js";
+import settingsRouter from "./Routes/settings.routes.js"
+
 import { PORT, FRONT_PORT, MONGO_URI, TOKEN_KEY, } from "./config/index.js"
 
 // Carga de variables de entorno
@@ -13,7 +16,7 @@ const app = express();
 app.use(
   cors({
     origin: [`http://localhost:${FRONT_PORT}`],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
 );
@@ -25,6 +28,11 @@ app.use(express.json());
 // Rutas de autenticación
 app.use("/", AuthRoute);
 
+// Rutas para gestionar empleados
+app.use("/employees", EmployeesRoutes);
+
+// Rutas para modificar el perfil de usuario
+app.use("/settings", settingsRouter)
 // La app escucha en el puerto definido 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);

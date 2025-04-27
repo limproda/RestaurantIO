@@ -7,13 +7,12 @@ import useIsSmallScreen from "../features/responsive/useIsSmallScreen";
 import { appName } from "../config/config";
 
 export default function Sidebar({
-  mobileOpen,      // booleano que controla el temporary sidebar en móvil
-  mobileClose    // función para cerrarlo
+  mobileOpen,      // Booleano que controla el temporary sidebar en móvil
+  mobileClose    // Función para cerrarlo
 }) {                      
   const pages    = usePages();                          
   const navigate = useNavigate();                                    
   const isSmallScreen = useIsSmallScreen();
-
   // Contenido del sidebar
   const sidebarContent = (
     <Box sx={{ width: 240 }}>

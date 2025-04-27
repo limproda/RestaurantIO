@@ -20,11 +20,19 @@ export const userVerification = async (req, res, next) => {
         return res.status(404).json({ status: false, message: "Usuario no encontrado" }); // Error de usuario no encontrado
       }
 
-      // Si todo está bien, devuelve el usuario o continúa con la ejecución
-      return res.status(200).json({ status: true, user: user.email });
+      req.user = user;
+      next();
     });
   } catch (error) {
     console.error("Error en userVerification middleware:", error); 
     res.status(500).json({ status: false, message: "Error interno del servidor" }); // Error interno del servidor
   }
+};
+
+// Función para verificar que el usuario es administrador, en caso contrario, denegamos el acceso
+export function verifyAdmin(req, res, next) {
+  if (req.user.role.toLowerCase() !== "administrador") {
+    return res.status(403).json({ message: "Acceso denegado" });
+  }
+  next();
 };

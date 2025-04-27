@@ -31,6 +31,7 @@ const SignupForm = ({
         type="email"
         name="email"
         label="Correo"
+        required
         value={inputValue.email}
         placeholder="Escribe tu correo"
         onChange={handleOnChange}
@@ -42,6 +43,7 @@ const SignupForm = ({
         type={showPassword ? "text" : "password"}
         name="password"
         label="Contraseña"
+        required
         value={inputValue.password}
         placeholder="Escribe tu contraseña"
         onChange={handleOnChange}
@@ -72,6 +74,7 @@ const SignupForm = ({
         type={showConfirmPassword ? "text" : "password"}
         name="confirmPassword"
         label="Confirmar Contraseña"
+        required
         value={inputValue.confirmPassword}
         placeholder="Repite tu contraseña"
         onChange={handleOnChange}
@@ -97,9 +100,9 @@ const SignupForm = ({
         }}
       />
       { /* Campo de nombre */}
-      <TextField type="text" name="name" label="Nombre" value={inputValue.name} onChange={handleOnChange} fullWidth />
+      <TextField type="text" name="name" label="Nombre" required value={inputValue.name} onChange={handleOnChange} fullWidth />
       { /* Campo de apellido */}
-      <TextField type="text" name="lastName" label="Apellido" value={inputValue.lastName} onChange={handleOnChange} fullWidth />
+      <TextField type="text" name="lastName" label="Apellido" required value={inputValue.lastName} onChange={handleOnChange} fullWidth />
       { /* Campo de teléfono */}
       <TextField type="tel" name="phone" label="Teléfono" value={inputValue.phone} onChange={handleOnChange} fullWidth />
       {/* Botón de crear cuenta */}
