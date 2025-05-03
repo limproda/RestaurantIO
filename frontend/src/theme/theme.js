@@ -37,10 +37,12 @@ const theme = createTheme({
       contrastText: "#000",
     },
     error: {
+      light: "#FFEBEE",
       main: '#B00020',      // color de error
       contrastText: '#fff'
     },
     success: {
+      light: "#F1F8E9",
       main: '#388E3C',      // color de éxito
       contrastText: '#fff'
     },
@@ -62,6 +64,9 @@ const theme = createTheme({
     caption: {
       main: '#fff',
     },
+    background: {
+      
+    }
   },
   // Definición de la tipografía
   typography: {

@@ -7,7 +7,7 @@ import { Typography, Box } from "@mui/material";
 
 // Página de edición de un empleado que ya existe
 export default function EmployeesEditPage() {
-  const { id } = useParams(); // Obtenemos el ID
+  const { id } = useParams(); // Obtenemos el ID y el rol
   const navigate = useNavigate(); // Para redirigir
   const { notify } = useNotification(); // Alertas personalizadas
 
@@ -30,7 +30,7 @@ export default function EmployeesEditPage() {
       flexDirection="column"
     >
       {/* Título de la página */}
-      <Typography variant="h1">Añadir nuevo empleado</Typography>
+      <Typography variant="h1">Editar información de empleado</Typography>
 
       {/* Formulario reutilizable para datos de employee */}
       <EmployeeForm

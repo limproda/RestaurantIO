@@ -31,8 +31,8 @@ export default function MainLayout({ children }) {
           sx={{
             display: "flex",
             flexDirection: "column",
-            height: "80vh",
-            p: 4,
+            height: "100%",
+            p: 4
           }}
         >
           {" "}

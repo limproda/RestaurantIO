@@ -16,6 +16,7 @@ const SignupForm = ({
   handleMouseDownPassword,
   handleMouseUpPassword,
   handleSubmit,
+  submitting,
 }) => (
   // Paper de MUI que contiene el formulario con un borde y sombra
   <Paper elevation={3} sx={{ p: 4, width: "100%" }}>
@@ -104,9 +105,9 @@ const SignupForm = ({
       { /* Campo de apellido */}
       <TextField type="text" name="lastName" label="Apellido" required value={inputValue.lastName} onChange={handleOnChange} fullWidth />
       { /* Campo de teléfono */}
-      <TextField type="tel" name="phone" label="Teléfono" value={inputValue.phone} onChange={handleOnChange} fullWidth />
+        <TextField type="tel" name="phone" label="Teléfono" required value={inputValue.phone} onChange={handleOnChange} fullWidth />
       {/* Botón de crear cuenta */}
-      <Button type="submit" variant="contained" color="primary" fullWidth>Crear Cuenta</Button>
+      <Button type="submit" disabled={submitting} variant="contained" color="primary" fullWidth>{submitting ? "Creando cuenta..." : "Crear cuenta"}</Button>
       {/* Enlace para iniciar sesión si ya tiene cuenta */}
       <MuiLink component={Link} to="/login" variant="body2">{"¿Ya tienes una cuenta? Inicia sesión aquí"}</MuiLink>
     </Stack>

@@ -17,6 +17,9 @@ import UserProfile from "../features/userProfile/userProfile"
 import Employees from "../features/employees/Employees";
 import EmployeesEdit from "../features/employees/editEmployee/employeeEdit";
 import NewEmployee from "../features/employees/newEmployee/newEmployee";
+import Transactions from "../features/transactions/Transactions"
+import IncomeForm from "../features/transactions/incomes/Income.jsx"
+import ExpenseForm from "../features/transactions/expenses/Expense.jsx"
 
 // Empleado
 //import EmployeeWorkingTime    from '../pages/EmployeeWorkingTime';
@@ -83,6 +86,12 @@ export default function AppRoutes() {
         <Route path="employees/edit/:id" element={<EmployeesEdit />} />
         <Route path="employees/new" element={<NewEmployee />} />
         <Route path="settings" element={<UserProfile />} />
+        <Route path="transactions" element={<Transactions />} />
+        <Route path="transactions/new/income" element={<IncomeForm />} />
+        <Route path="transactions/income/edit/:id" element={<IncomeForm />} />
+        <Route path="transactions/new/expense" element={<ExpenseForm />} />
+        <Route path="transactions/expense/edit/:id" element={<ExpenseForm />} />
+        
       </Route>
       
       {/* Rutas del empleado */}
@@ -96,6 +105,7 @@ export default function AppRoutes() {
         }
       >
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="settings" element={<UserProfile />} />
         {/* Resto de rutas del empleado */}
       </Route>
 

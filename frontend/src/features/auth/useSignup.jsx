@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { API_URL } from "../../config/config";
 import { useNotification } from "../../components/NotificationProvider";
+import { signup } from "./authApi.js";
+
+// Definimos el valor inicial 
+const initialInputValue = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+  name: "",
+  lastName: "",
+  phone: "",
+};
 
 export const useSignup = () => {
   // Hooks de React y definición de variables
   const navigate = useNavigate();
   const { notify } = useNotification();
 
-  const [inputValue, setInputValue] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    name: "",
-    lastName: "",
-    phone: "",
-  });
+  const [submitting, setSubmitting] = useState(false); // Se usa para bloquear el formulario mientras se envía la información al backend
+  const [inputValue, setInputValue] = useState(initialInputValue);
 
   // Estado para controlar la visibilidad de la contraseña
   const [showPassword, setShowPassword] = useState(false);
@@ -39,25 +42,27 @@ export const useSignup = () => {
 
   // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
+    e.preventDefault();     // Evitamos el reload
+    setSubmitting(true) 
     const form = e.currentTarget;
+
     if (!form.checkValidity()) {
-      form.reportValidity();       // Si hay campos inválidos, muestra los tooltips nativos
+      form.reportValidity();
+      setSubmitting(false);       // Si hay campos inválidos, muestra los tooltips nativos
       return;                      // Salimos sin llamar a preventDefault ni a la API
     }
 
-    e.preventDefault();     // Si todo es válido, evitamos el reload
-
     // Verifica si las contraseñas coinciden
     if (inputValue.password !== inputValue.confirmPassword) {
-      return notify("error", "Las contraseñas no coinciden");
+      notify("error", "Las contraseñas no coinciden");
+      setSubmitting(false);
+      return;
     }
 
     // Envío de la solicitud POST a la API para iniciar sesión
     try {
-      const { data } = await axios.post(`${API_URL}/signup`, inputValue, {
-        withCredentials: true,
-      });
-      const { success, message } = data;
+      const res = await signup(inputValue);
+      const { success, message } = res.data;
 
       // Si la respuesta es exitosa, se muestra la notificación de éxito y se redirige al usuario a "/"
       if (success) {
@@ -72,15 +77,7 @@ export const useSignup = () => {
       const errorMessage = error.response?.data?.message || "Error inesperado";
       notify("error", errorMessage);
     } finally {
-      // Reinicia los valores de los inputs después de enviar el formulario
-      setInputValue({
-        email: "",
-        password: "",
-        confirmPassword: "",
-        name: "",
-        lastName: "",
-        phone: "",
-      });
+      setSubmitting(false);
     }
   };
 
@@ -94,5 +91,6 @@ export const useSignup = () => {
     handleMouseDownPassword,
     handleMouseUpPassword,
     handleSubmit,
+    submitting,
   };
 };

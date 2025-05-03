@@ -4,10 +4,12 @@ import { getProfile, updateProfile } from "../Controllers/settings.controllers.j
 
 const router = Router();
 
+router.use(userVerification);
+
 // GET - Devuelve los datos de un usuario autenticado
-router.get("/profile", userVerification, getProfile);
+router.get("/profile", getProfile);
 
 // PATCH - Actualiza los datos de un usuario autenticado
-router.patch("/profile", userVerification, updateProfile);
+router.patch("/profile", updateProfile);
 
 export default router;

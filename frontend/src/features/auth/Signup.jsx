@@ -15,6 +15,7 @@ const Signup = () => {
     handleMouseDownPassword,
     handleMouseUpPassword,
     handleSubmit,
+    submitting,
   } = useSignup();
 
   return (
@@ -33,6 +34,7 @@ const Signup = () => {
           handleMouseDownPassword={handleMouseDownPassword}
           handleMouseUpPassword={handleMouseUpPassword}
           handleSubmit={handleSubmit}
+          submitting={submitting}
         />
       </Container>
     </AnimatedGradientBox>

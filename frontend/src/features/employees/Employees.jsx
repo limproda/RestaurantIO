@@ -18,7 +18,7 @@ export default function Employees() {
         }}
       >
         {/* Título */}
-        <Typography variant="h1">Gestión de Empleados</Typography>
+        <Typography variant="h1" gutterBottom>Gestión de Empleados</Typography>
         {/* Botón de añadir empleado */}
         <Button
           variant="contained"

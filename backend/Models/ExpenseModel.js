@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
+import { toNegative } from "../util/transactions.util.js";
 
+// Definimos las categorías para los gastos
 export const expenseCategories = {
   ingredientes: "Materias primas  del restaurante como alimentos, verduras...",
   bebidas: "Vinos, cervezas, refrescos...",
@@ -24,7 +26,7 @@ const expenseSchema = new mongoose.Schema(
     amount: {
       type: Number,
       required: true,
-      min: 0,
+      set: toNegative,
     },
     date: {
       type: Date,
@@ -68,7 +70,7 @@ expenseSchema.index({ category: 1 });
 
 // Antes de guardar la cantidad en la base de datos, la redondeamos a 2 decimales
 expenseSchema.pre("save", function (next) {
-  this.amount = Math.round(this.amount * 100) / 100;
+  this.amount = -Math.round(Math.abs(this.amount) * 100) / 100;
   next();
 });
 
@@ -98,6 +100,16 @@ expenseSchema.virtual("year").get(function () {
 // 3. Texto para gastos deducibles
 expenseSchema.virtual("deductibleText").get(function () {
   return this.deductible ? "Sí" : "No";
+});
+
+// Campos virual para el type:
+expenseSchema.virtual("type").get(() => "gasto");
+
+// Campo para poner en mayúscula la primera letra
+expenseSchema.virtual("categoryCapitalized").get(function () {
+  return this.category
+    .charAt(0)
+    .toUpperCase() + this.category.slice(1).toLowerCase();
 });
 
 export default mongoose.model("Expense", expenseSchema);

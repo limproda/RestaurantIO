@@ -44,7 +44,6 @@ export function useNewEmployee() {
         }
         if (!employee.confirmPassword) {
           notify("error", "Confirmar contraseña es requerida");  // El campo confirmar contraseña es obligatorio
-          setSubmitting(false);
           return;
         }
         if (employee.password !== employee.confirmPassword) { // Ambas contraseñas deben coincidir
@@ -55,16 +54,24 @@ export function useNewEmployee() {
       }
 
       try {
-        await createEmployee(employee);
-        notify("success", "Empleado creado correctamente");
-        navigate("/admin/employees");
+        const res = await createEmployee(employee);
+        const { success, message } = res.data;
+        if(success){
+          notify("success", message || "Empleado creado correctamente");
+          navigate("/admin/employees");
+        } else {
+          notify("error", message || "No se pudo crear el empleado");
+          setSubmitting(false);
+        }
+
       } catch (err) {
-        console.error(err);
-        notify("error", "Error al crear empleado");
+        const backendMsg = err.response?.data?.message ?? "Error al crear empleado";
+        notify("error", backendMsg);
+        setSubmitting(false);
+      } finally {
         setSubmitting(false);
       }
-    },
-    [employee, navigate, notify]
+    }, [employee, navigate, notify]
   );
 
   return {

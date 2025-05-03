@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 
-// Creamos el contexto
+// Creamos el contexto que sirve como contenedor global con la información del usuario 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {

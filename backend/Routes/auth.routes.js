@@ -1,11 +1,13 @@
-import { Signup, Login } from "../Controllers/auth.controllers.js";
+import { Signup, Login } from "../Controllers/auth.controller.js";
 import { userVerification } from "../Middlewares/auth.middleware.js";
 import { Router } from "express";
 
 const router = Router();
 
-router.post("/signup", Signup);
-router.post("/login", Login);
-router.post("/", userVerification);
+// Rutas de autenticación
+router.post("/", userVerification); // Ruta de inicio
+router.post("/signup", Signup); // Ruta de creación de cuenta
+router.post("/login", Login); // Ruta de inicio de sesión
+
 
 export default router;

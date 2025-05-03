@@ -98,6 +98,8 @@ export default function Topbar({}) {
                 {user?.profilePictureUrl ? (
                   <Avatar
                     src={user.profilePictureUrl}
+                    onClick={() => pages.length && handleNavigate(pages[pages.length - 1].path)}
+                    sx = {{ cursor: "pointer" }}
                   />
                 ) : (
                   <PersonIcon /> // Icono en caso de que no exista foto de perfil

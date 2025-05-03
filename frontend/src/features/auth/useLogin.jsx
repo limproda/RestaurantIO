@@ -4,6 +4,8 @@ import axios from "axios";
 import { API_URL } from "../../config/config.js";
 import { useAuth } from "../../contexts/AuthContext.jsx";
 import { useNotification } from "../../components/NotificationProvider";
+import { login } from "./authApi.js";
+
 
 export const useLogin = () => {
   // Hooks de React y definición de variables
@@ -43,13 +45,8 @@ export const useLogin = () => {
 
     // Envío de la solicitud POST a la API para iniciar sesión
     try {
-      const { data } = await axios.post(
-        `${API_URL}/login`,
-        { ...inputValue },
-        { withCredentials: true }
-      );
-
-      const { success, message, user } = data;
+      const res = await login(inputValue);
+      const { success, message, user } = res.data;
 
       // Si la respuesta es exitosa, se muestra la notificación de éxito y se redirige al usuario
       if (success) {

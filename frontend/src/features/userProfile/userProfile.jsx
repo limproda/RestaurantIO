@@ -19,7 +19,7 @@ export default function UserProfile() {
   return (
     <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
       {/* Título de la página */}
-      <Typography variant="h1">Ajustes de tu Perfil</Typography>
+      <Typography variant="h1">Ajustes de tu perfil</Typography>
 
       {/* Formulario con los datos y las acciones */}
       <UserForm

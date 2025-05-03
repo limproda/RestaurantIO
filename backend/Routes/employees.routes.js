@@ -9,7 +9,7 @@ import {
   createEmployee,
   getEmployeeById,
   updateEmployee,
-} from "../Controllers/employees.controllers.js";
+} from "../Controllers/employees.controller.js";
 
 const router = Router();
 
@@ -21,7 +21,7 @@ router.use(verifyAdmin);
 router.get("/", getAllEmployees);
 
 // POST - Crea un nuevo empleado
-router.post("/", userVerification, verifyAdmin, createEmployee);
+router.post("/", createEmployee);
 
 // GET - Devuelve un empleado según el ID
 router.get("/:id", getEmployeeById);
@@ -30,6 +30,6 @@ router.get("/:id", getEmployeeById);
 router.patch("/:id", updateEmployee);
 
 // Borra un empleado usando el ID
-router.delete("/:id", userVerification, verifyAdmin, deleteEmployee);
+router.delete("/:id", deleteEmployee);
 
 export default router;

@@ -17,7 +17,6 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import PersonIcon from "@mui/icons-material/Person";
 import { PasswordField } from "./PasswordField";
-import { useRole } from "../features/role/useRole.js";
 
 export function UserForm({
   user,                 // datos del usuario a mostrar
@@ -35,8 +34,8 @@ export function UserForm({
     return <CircularProgress />;
   }
 
-  const { isAdmin } = useRole();
-
+  const isAdmin = user.role?.toLowerCase() === "administrador";
+  
   return (
     <Box
       component="form"
@@ -115,6 +114,7 @@ export function UserForm({
             label="Teléfono"
             name="phone"
             type="tel"
+            required
             placeholder="Sólo dígitos"
             value={user.phone ?? ""}
             onChange={onFieldChange}

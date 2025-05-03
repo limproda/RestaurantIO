@@ -7,6 +7,7 @@ import {
   Button,
   Avatar,
   Stack,
+  ButtonGroup,
 } from "@mui/material";
 import { useEmployees } from "./useEmployees";
 import { useNotification } from "../../components/NotificationProvider.jsx";
@@ -30,7 +31,7 @@ export default function EmployeesTable() {
     {
       field: "profilePictureUrl",
       headerName: "Foto",
-      width: 100,
+      width: 80,
       sortable: false,
       headerAlign: "center", // centra el encabezado
       renderCell: (params) => (
@@ -46,24 +47,20 @@ export default function EmployeesTable() {
         </Box>
       ),
     },
-    { field: "name", headerName: "Nombre", width: 100 },
-    { field: "lastName", headerName: "Apellidos", width: 150 },
-    { field: "email", headerName: "Correo", width: 200 },
+    { field: "name", headerName: "Nombre", width: 120 },
+    { field: "lastName", headerName: "Apellidos", width: 180 },
+    { field: "email", headerName: "Correo", flex: 1, minWidth: 250 },
     { field: "phone", headerName: "Teléfono", width: 150 },
     // Columnas con las acciones de modificar y borrar
     {
       field: "actions",
       headerName: "Acciones",
-      width: 260,
+      headerAlign: "center",
+      align: "center",
+      width: 200,
       sortable: false,
       renderCell: (params) => (
-        <Stack
-          direction="row"
-          spacing={2}
-          justifyContent="center"
-          alignItems="center"
-          sx={{ height: "100%" }}
-        >
+        <ButtonGroup variant="outlined" size="small">
           {/* Opción de Modificar */}
           <Button
             size="small"
@@ -87,7 +84,7 @@ export default function EmployeesTable() {
           >
             Borrar
           </Button>
-        </Stack>
+        </ButtonGroup>
       ),
     },
   ];
@@ -101,6 +98,7 @@ export default function EmployeesTable() {
         columns={columns}
         getRowId={(row) => row._id} // Clave primaria
         pageSize={15} // Número de filas por páginas
+        showToolbar
       />
     </Box>
   );

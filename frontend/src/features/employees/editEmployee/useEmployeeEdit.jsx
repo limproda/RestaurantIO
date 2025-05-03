@@ -17,7 +17,7 @@ export function useEmployeeEdit(id) {
     setLoading(true);
     try {
       const res = await getEmployeeById(id); // Se pide al backend
-      setEmployee(res.data);                  // Se guarda la respuesta recibida
+      setEmployee(res.data.user);                  // Se guarda la respuesta recibida
     } catch (err) {
       setError(err);
       notify("error", "Error al cargar datos del empleado"); // Mensaje de error
@@ -49,10 +49,17 @@ export function useEmployeeEdit(id) {
   const saveChanges = async () => {
     setLoading(true);
     try {
-      await patchEmployee(id, employee); // Guardamos en la base de datos
-      notify("success", "Empleado actualizado correctamente");
+      const res = await patchEmployee(id, employee); // Guardamos en la base de datos
+      const { success, message } = res.data
+      if(success) {
+        notify("success", message || "Empleado actualizado correctamente");
+      } else {
+        notify("error", message || "Error al actualizar empleado");
+      }
+
     } catch (err) {
-      notify("error", "Error al actualizar empleado");
+      const backendMsg = err.response?.data?.message ?? "Error al actualizar empleado";
+      notify("error", backendMsg);
       throw err;
     } finally {
       setLoading(false);
