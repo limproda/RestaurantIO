@@ -47,9 +47,9 @@ export default function EmployeesEditPage() {
           if (!ok) return;
           await deleteEmployee(employee._id);
           notify("success", "Empleado borrado");
-          navigate("/admin/employees"); // Volvemos a la tabla con los empleados
+          navigate(-1); // Volvemos a la vista anterior
         }}
-        onCancel={() => navigate("/admin/employees")} // Calcemos edición sin guardar
+        onCancel={() => navigate(-1)} // Calcemos edición sin guardar
         showDelete={true} // Mostrar botón de borrado
         passwordRequire={false} // No exigir contraseña, permite que se modfiquen algunos campos, la contraseña no obligatoria
       />

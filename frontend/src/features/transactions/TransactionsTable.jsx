@@ -88,6 +88,8 @@ export default function TransactionsTable({
         headerName: "Deducible",
         width: 100,
         sortable: false,
+        headerAlign: "center",
+        align: "center",
         renderCell: ({ value, row: { type } }) => {
           if (type.toLowerCase() !== "gasto") return null; // Solo mostramos algo si es un gasto
           // Si es gasto, mostramos check o cruz según el valor booleano de deducible

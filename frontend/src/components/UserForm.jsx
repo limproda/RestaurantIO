@@ -29,6 +29,7 @@ export function UserForm({
   onCancel,             // función opcional de cancelación
   showDelete = false,  // muestra botón borrar
   passwordRequire,      // indica si la contraseña es obligatoria
+  readOnly = false,     // indica si el formulario es de solo lectura
 }) {
   if (loading || !user) {
     return <CircularProgress />;
@@ -64,6 +65,7 @@ export function UserForm({
             value={user.name ?? ""}
             onChange={onFieldChange}
             fullWidth
+            disabled={readOnly}
           />
           <PasswordField
             name="password"
@@ -72,6 +74,7 @@ export function UserForm({
             value={user.password ?? ""}
             required={passwordRequire}
             onChange={onFieldChange}
+            disabled={readOnly}
           />
         </Grid>
 
@@ -84,6 +87,7 @@ export function UserForm({
             value={user.lastName ?? ""}
             onChange={onFieldChange}
             fullWidth
+            disabled={readOnly}
           />
           <PasswordField
             name="confirmPassword"
@@ -92,6 +96,7 @@ export function UserForm({
             value={user.confirmPassword ?? ""}
             required={passwordRequire}
             onChange={onFieldChange}
+            disabled={readOnly}
           />
         </Grid>
 
@@ -105,6 +110,7 @@ export function UserForm({
             value={user.email ?? ""}
             onChange={onFieldChange}
             fullWidth
+            disabled={readOnly}
           />
         </Grid>
 
@@ -119,6 +125,7 @@ export function UserForm({
             value={user.phone ?? ""}
             onChange={onFieldChange}
             fullWidth
+            disabled={readOnly}
           />
           {/* Fecha de contratación - UNICAMENTE PARA ROL DE EMPLEADO */}
           {!isAdmin && (
@@ -165,6 +172,7 @@ export function UserForm({
               onChange={onFieldChange}
               fullWidth
               inputProps={{ min: 1, max: 31 }}
+              disabled={readOnly}
             />
           )}
         </Grid>
@@ -194,7 +202,7 @@ export function UserForm({
             type="submit"
             variant="contained"
             fullWidth
-            disabled={submitting}
+            disabled={submitting || readOnly}
           >
             {submitting ? "Guardando..." : "Guardar cambios"}
           </Button>

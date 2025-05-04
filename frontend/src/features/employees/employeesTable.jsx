@@ -49,7 +49,7 @@ export default function EmployeesTable() {
     },
     { field: "name", headerName: "Nombre", width: 120 },
     { field: "lastName", headerName: "Apellidos", width: 180 },
-    { field: "email", headerName: "Correo", flex: 1, minWidth: 250 },
+    { field: "email", headerName: "Correo", flex: 1, minWidth: 230 },
     { field: "phone", headerName: "Teléfono", width: 150 },
     // Columnas con las acciones de modificar y borrar
     {
@@ -57,10 +57,19 @@ export default function EmployeesTable() {
       headerName: "Acciones",
       headerAlign: "center",
       align: "center",
-      width: 200,
+      width: 250,
       sortable: false,
       renderCell: (params) => (
         <ButtonGroup variant="outlined" size="small">
+          {/* Opción de Ver */}
+          <Button
+            size="small"
+            variant="outlined"
+            color="success"
+            onClick={() => navigate(`/admin/employees/view/${params.row._id}`)} // Navega a la página de edición de empleado
+          >
+            Ver
+          </Button>
           {/* Opción de Modificar */}
           <Button
             size="small"

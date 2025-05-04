@@ -17,6 +17,7 @@ import UserProfile from "../features/userProfile/userProfile"
 import Employees from "../features/employees/Employees";
 import EmployeesEdit from "../features/employees/editEmployee/employeeEdit";
 import NewEmployee from "../features/employees/newEmployee/newEmployee";
+import ViewEmployee from "../features/employees/viewEmployee/viewEmployee";
 import Transactions from "../features/transactions/Transactions"
 import IncomeForm from "../features/transactions/incomes/Income.jsx"
 import ExpenseForm from "../features/transactions/expenses/Expense.jsx"
@@ -84,6 +85,7 @@ export default function AppRoutes() {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="employees" element={<Employees />} />
         <Route path="employees/edit/:id" element={<EmployeesEdit />} />
+        <Route path="employees/view/:id" element={<ViewEmployee />} />
         <Route path="employees/new" element={<NewEmployee />} />
         <Route path="settings" element={<UserProfile />} />
         <Route path="transactions" element={<Transactions />} />
