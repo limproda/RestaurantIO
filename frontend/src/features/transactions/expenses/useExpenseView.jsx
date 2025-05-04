@@ -1,33 +1,32 @@
 import { useState, useEffect, useCallback } from "react";
-import { getEmployeeById } from "../employeesApi";
+import { getExpenseById } from "../transactionsApi";
 import { useNotification } from "../../../components/NotificationProvider";
 
-export function useEmployeeView(id) {
-  const [employee, setEmployee] = useState(null);
+export function useExpenseView(id) {
+  const [expense, setExpense] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { notify } = useNotification();
 
-  // Cargamos los datos del empleado
-  const loadEmployee = useCallback(async () => {
+  const loadExpense = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await getEmployeeById(id);
-      setEmployee(res.data.user);
+      const res = await getExpenseById(id);
+      setExpense(res.data.expense);
     } catch (err) {
       setError(err);
-      notify("error", "Error al cargar datos del empleado");
+      notify("error", "Error al cargar datos del gasto");
     } finally {
       setLoading(false);
     }
   }, [id, notify]);
 
   useEffect(() => {
-    loadEmployee();
-  }, [loadEmployee]);
+    loadExpense();
+  }, [loadExpense]);
 
   return {
-    employee,
+    expense,
     loading,
     error
   };

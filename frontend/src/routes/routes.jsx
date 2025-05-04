@@ -21,6 +21,8 @@ import ViewEmployee from "../features/employees/viewEmployee/viewEmployee";
 import Transactions from "../features/transactions/Transactions"
 import IncomeForm from "../features/transactions/incomes/Income.jsx"
 import ExpenseForm from "../features/transactions/expenses/Expense.jsx"
+import ViewIncome from "../features/transactions/incomes/viewIncome.jsx"
+import ViewExpense from "../features/transactions/expenses/viewExpense.jsx"
 
 // Empleado
 //import EmployeeWorkingTime    from '../pages/EmployeeWorkingTime';
@@ -91,9 +93,10 @@ export default function AppRoutes() {
         <Route path="transactions" element={<Transactions />} />
         <Route path="transactions/new/income" element={<IncomeForm />} />
         <Route path="transactions/income/edit/:id" element={<IncomeForm />} />
+        <Route path="transactions/income/view/:id" element={<ViewIncome />} />
         <Route path="transactions/new/expense" element={<ExpenseForm />} />
         <Route path="transactions/expense/edit/:id" element={<ExpenseForm />} />
-        
+        <Route path="transactions/expense/view/:id" element={<ViewExpense />} />
       </Route>
       
       {/* Rutas del empleado */}

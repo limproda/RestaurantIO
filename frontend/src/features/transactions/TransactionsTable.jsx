@@ -53,16 +53,31 @@ export default function TransactionsTable({
         sortable: false,
         renderCell: (params) => (
           <ButtonGroup variant="outlined" size="small">
+            {/* Botón de Ver */}
+            <Button
+              color="success"
+              onClick={() =>
+                params.row.type === "ingreso"
+                  ? navigate(
+                    `/admin/transactions/income/view/${params.row._id}`
+                  )
+                  : navigate(
+                    `/admin/transactions/expense/view/${params.row._id}`
+                  )
+              }
+            >
+              Ver
+            </Button>
             {/* Botón de Modificar */}
             <Button
               onClick={() =>
                 params.row.type === "ingreso"
                   ? navigate(
-                      `/admin/transactions/income/edit/${params.row._id}`
-                    )
+                    `/admin/transactions/income/edit/${params.row._id}`
+                  )
                   : navigate(
-                      `/admin/transactions/expense/edit/${params.row._id}`
-                    )
+                    `/admin/transactions/expense/edit/${params.row._id}`
+                  )
               }
             >
               Modificar
