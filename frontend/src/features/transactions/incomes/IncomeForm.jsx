@@ -50,7 +50,7 @@ export default function IncomeForm() {
     >
       <Grid container spacing={2}>
         {/* Importe */}
-        <Grid size={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <TextField
             label="Importe"
             name="amount"
@@ -63,14 +63,14 @@ export default function IncomeForm() {
         </Grid>
 
         {/* Fecha */}
-        <Grid size={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Fecha"
               value={income.date ? dayjs(income.date) : null}
               onChange={handleDateChange("date")}
               slots={{ textField: PickersTextField }}
-              slotProps={{ textField: { fullWidth: true } }}
+              slotProps={{ textField: { fullWidth: true, required: true } }}
             />
           </LocalizationProvider>
         </Grid>

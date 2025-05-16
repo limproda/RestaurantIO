@@ -74,7 +74,7 @@ export const useSignup = () => {
       }
     } catch (error) {
       // Si ocurre algún error, muestra la notificación de error
-      const errorMessage = error.response?.data?.message || "Error inesperado";
+      const errorMessage = error.response?.data?.message ?? "Error al registrarse";
       notify("error", errorMessage);
     } finally {
       setSubmitting(false);

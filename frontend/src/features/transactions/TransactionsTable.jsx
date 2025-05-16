@@ -22,10 +22,11 @@ export default function TransactionsTable({
   // Hacemos que React guarde la respuesta obtenida
   const columns = useMemo(
     () => [
-      { field: "formattedDate", headerName: "Fecha", width: 120 }, // Columna de la fecha
-      { field: "concept", headerName: "Concepto", flex: 1, minWidth: 150 }, // Columna de concepto
-      { field: "categoryCapitalized", headerName: "Categoría", width: 150 }, // Columna de categoría
+      { field: "formattedDate", headerName: "Fecha", width: 110 }, // Columna de la fecha
+      { field: "concept", headerName: "Concepto", flex: 1, minWidth: 145 }, // Columna de concepto
+      { field: "categoryCapitalized", headerName: "Categoría", width: 145 }, // Columna de categoría
       { field: "type", headerName: "Tipo", width: 100 }, // Columna de tipo
+
       /* Columna de importe */
       {
         field: "amount",
@@ -43,13 +44,14 @@ export default function TransactionsTable({
           );
         },
       },
+
       /* Columna de Acciones */
       {
         field: "actions",
         headerName: "Acciones",
         headerAlign: "center",
         align: "center",
-        width: 200,
+        width: 210,
         sortable: false,
         renderCell: (params) => (
           <ButtonGroup variant="outlined" size="small">
@@ -59,11 +61,11 @@ export default function TransactionsTable({
               onClick={() =>
                 params.row.type === "ingreso"
                   ? navigate(
-                    `/admin/transactions/income/view/${params.row._id}`
-                  )
+                      `/admin/transactions/income/view/${params.row._id}`
+                    )
                   : navigate(
-                    `/admin/transactions/expense/view/${params.row._id}`
-                  )
+                      `/admin/transactions/expense/view/${params.row._id}`
+                    )
               }
             >
               Ver
@@ -73,11 +75,11 @@ export default function TransactionsTable({
               onClick={() =>
                 params.row.type === "ingreso"
                   ? navigate(
-                    `/admin/transactions/income/edit/${params.row._id}`
-                  )
+                      `/admin/transactions/income/edit/${params.row._id}`
+                    )
                   : navigate(
-                    `/admin/transactions/expense/edit/${params.row._id}`
-                  )
+                      `/admin/transactions/expense/edit/${params.row._id}`
+                    )
               }
             >
               Modificar
@@ -98,6 +100,7 @@ export default function TransactionsTable({
           </ButtonGroup>
         ),
       },
+
       {
         field: "deductible",
         headerName: "Deducible",
@@ -115,8 +118,18 @@ export default function TransactionsTable({
           );
         },
       },
+
+      {
+        field: "supplier",
+        headerName: "Proveedor",
+        width: 150,
+        renderCell: ({ value, row: { type } }) => {
+          if (type.toLowerCase() !== "gasto") return ""; // ingresos: cadena vacía
+          return value?.trim() ? value : "No especificado"; // gastos sin proveedor: "No especificado"
+        },
+      },
     ],
-    [navigate]
+    [navigate, deleteTransaction]
   );
 
   // Mientras carga, indicamos con un spinner circular
@@ -130,10 +143,9 @@ export default function TransactionsTable({
         columns={columns}
         getRowId={(row) => row._id}
         pageSize={50}
-        showToolbar
-        getRowClassName={
-          ({ row }) =>
-            row.type.toLowerCase() === "gasto" ? "row-gasto" : "row-ingreso" // Añadimos la clase según si es gasto o ingreso
+        showToolbar // Activa el botón de columnas nativo
+        getRowClassName={({ row }) =>
+          row.type.toLowerCase() === "gasto" ? "row-gasto" : "row-ingreso" // Añadimos la clase según si es gasto o ingreso
         }
         sx={{
           "& .row-ingreso": { bgcolor: (theme) => theme.palette.success.light }, // Para los ingresos, color verde suave
@@ -144,6 +156,14 @@ export default function TransactionsTable({
             alignItems: "center",
           },
         }}
+        initialState={{
+          columns: {
+            columnVisibilityModel: {
+              supplier: false, // Por defecto, ocultamos la columna de supplier
+            },
+          },
+        }}
+        disableRowSelectionOnClick
       />
     </Box>
   );

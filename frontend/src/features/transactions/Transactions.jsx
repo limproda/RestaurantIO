@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useTransactions } from "./useTransactions.jsx";
-import SummaryCards from "../../components/SummaryCards.jsx";
+import TransactionsSummaryCards from "../../components/TransactionsSummaryCards.jsx";
 import TransactionsTable from "./TransactionsTable";
 
 // Componente principal para gestionar transacciones (ingresos y gastos)
@@ -50,7 +50,7 @@ export default function Transactions() {
       </Box>
 
       {/* Sección de tarjetas de resumen */}
-      <SummaryCards summary={summary} loading={loading} />
+      <TransactionsSummaryCards />
 
       {/* Tabla con el contenido */}
       <Box>

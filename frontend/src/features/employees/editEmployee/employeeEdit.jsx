@@ -15,12 +15,23 @@ export default function EmployeesEditPage() {
   const {
     employee,
     loading,
+    error,
+    newProfilePreview,           // Preview de la nueva foto de perfil si se cambia
     submitting,
     handleFieldChange,
     handleDateChange,
     handleSubmit,
+    handleProfilePicChange,      // Foto de perfil
+    handleCancel,                // Cancelar edición
     deleteEmployee,
   } = useEmployeeEdit(id);
+
+  // Manejo de error de carga
+  if (error) {
+    notify("error", "Error cargando datos del empleado");
+    navigate(-1);
+    return null;
+  }
 
   return (
     <Box
@@ -36,10 +47,12 @@ export default function EmployeesEditPage() {
       <EmployeeForm
         user={employee}                     // Datos del empleado a modificar
         loading={loading}                   // Elemento de carga
-        submitting={submitting}              // Mientras se está enviando, deshabilitamos el botón de enviar
+        submitting={submitting}            // Mientras se está enviando, deshabilitamos el botón de enviar
         onFieldChange={handleFieldChange}   // Manejo de los cambios de texto
         onDateChange={handleDateChange}     // Manejo de los cambios de fecha
         onSubmit={handleSubmit}             // Guardar cambios
+        handleProfilePicChange={handleProfilePicChange} // Foto de perfil
+        newProfilePreview={newProfilePreview}           // Preview de la nueva foto
         onDelete={async () => {
           const ok = window.confirm(
             `¿Seguro que quieres borrar a ${employee.name} ${employee.lastName}? \n Esta opción no se puede deshacer.` // Mensaje de seguridad
@@ -49,9 +62,9 @@ export default function EmployeesEditPage() {
           notify("success", "Empleado borrado");
           navigate(-1); // Volvemos a la vista anterior
         }}
-        onCancel={() => navigate(-1)} // Calcemos edición sin guardar
-        showDelete={true} // Mostrar botón de borrado
-        passwordRequire={false} // No exigir contraseña, permite que se modfiquen algunos campos, la contraseña no obligatoria
+        onCancel={handleCancel} // Cancelar edición sin guardar
+        showDelete={true}  // Mostrar botón de borrado
+        passwordRequire={false} // No exigir contraseña, permite modificar algunos campos
       />
     </Box>
   );

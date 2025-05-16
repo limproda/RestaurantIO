@@ -3,10 +3,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import {
   Box,
   CircularProgress,
-  Typography,
   Button,
   Avatar,
-  Stack,
   ButtonGroup,
 } from "@mui/material";
 import { useEmployees } from "./useEmployees";
@@ -106,8 +104,8 @@ export default function EmployeesTable() {
         rows={employees}
         columns={columns}
         getRowId={(row) => row._id} // Clave primaria
-        pageSize={15} // Número de filas por páginas
         showToolbar
+        disableRowSelectionOnClick
       />
     </Box>
   );

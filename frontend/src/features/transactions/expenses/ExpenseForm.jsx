@@ -52,7 +52,7 @@ export default function ExpenseForm() {
     >
       <Grid container spacing={2}>
         {/* Importe */}
-        <Grid size={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <TextField
             label="Importe"
             name="amount"
@@ -65,7 +65,7 @@ export default function ExpenseForm() {
         </Grid>
 
         {/* Fecha */}
-        <Grid size={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Fecha"
@@ -146,7 +146,7 @@ export default function ExpenseForm() {
           />
         </Grid>
         {/* Proveedor */}
-        <Grid size={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <TextField
             label="Proveedor"
             name="supplier"
@@ -157,7 +157,7 @@ export default function ExpenseForm() {
         </Grid>
 
         {/* Deducible */}
-        <Grid size={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <FormControlLabel
             control={
               <Switch

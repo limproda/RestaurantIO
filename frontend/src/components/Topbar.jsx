@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, Box, IconButton, Typography, Avatar, useTheme, } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  IconButton,
+  Typography,
+  Avatar,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { usePages } from "../features/navigationMenu/usePages";
 import { iconMap } from "../features/navigationMenu/menuIcons";
@@ -9,17 +16,21 @@ import Sidebar from "./Sidebar";
 import { sidebarWidth, appName } from "../config/config";
 import useIsSmallScreen from "../features/responsive/useIsSmallScreen";
 import PersonIcon from "@mui/icons-material/Person";
+import { LogoutDialog } from "./LogoutDialog";
 
 export default function Topbar({}) {
-  const { user } = useRole(); // Obtenemos el usuario logueado y los métodos según el rol
+  const { user, isAdmin } = useRole(); // Obtenemos el usuario logueado y los métodos según el rol
   const pages = usePages(); // Array con las páginas que queremos mostrar, en base al rol
   const navigate = useNavigate(); // Hook de React que permite la navegación
-  const theme = useTheme(); // Hook para acceder al theme de MUI
   const isSmallScreen = useIsSmallScreen(); // Definimos el tamaño para móviles con un breakpoint de small de MUI
   const [sidebarOpen, setSidebarOpen] = useState(false); // Estado para controlar la apertura o cierre del Sidebar en móvil
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false); // Permite controlar el diálogo
 
   const handleToggleSidebar = () => setSidebarOpen((o) => !o); // Alterna el estado del Sidebar para abrir y cerrar
-  const handleNavigate = (path) => navigate(path); // Navega a la ruta indicada
+  const openLogoutDialog = () => setLogoutDialogOpen(true);
+  const closeLogoutDialog = () => setLogoutDialogOpen(false);
+
+  const logOutText = "Cerrar Sesión";
 
   return (
     <Box>
@@ -62,15 +73,16 @@ export default function Topbar({}) {
               >
                 {/* Recorremos el array de páginas, que varía según el rol */}
                 {pages.map((p) => {
-                  {
-                    /* Extraemos los iconos */
-                  }
+                  {/* Extraemos los iconos */}
                   const Icon = iconMap[p.icon];
+                  const isLogout = p.name === logOutText; // Comprobador de si es cerrar sesión
                   return (
                     <IconButton
                       key={p.name}
                       sx={{ flexDirection: "column", mx: 1 }}
-                      onClick={() => handleNavigate(p.path)} // Añadimos en enlace al hacer clic
+                      onClick={
+                        isLogout ? openLogoutDialog : () => navigate(p.path)
+                      } // Añadimos en enlace al hacer clic
                     >
                       <Icon />
                       <Typography variant="caption">{p.name}</Typography>{" "}
@@ -98,11 +110,14 @@ export default function Topbar({}) {
                 {user?.profilePictureUrl ? (
                   <Avatar
                     src={user.profilePictureUrl}
-                    onClick={() => pages.length && handleNavigate(pages[pages.length - 1].path)}
-                    sx = {{ cursor: "pointer" }}
+                    onClick={() => isAdmin ? navigate("/admin/settings") : navigate("/employee/settings")}
+                    sx={{ cursor: "pointer" }}
                   />
                 ) : (
-                  <PersonIcon /> // Icono en caso de que no exista foto de perfil
+                  <PersonIcon
+                    onClick={() => isAdmin ? navigate("/admin/settings") : navigate("/employee/settings")}
+                    sx={{ cursor: "pointer" }}
+                  /> // Icono en caso de que no exista foto de perfil
                 )}
               </Box>
             </>
@@ -111,10 +126,9 @@ export default function Topbar({}) {
       </AppBar>
 
       {/* Sidebar que solo se muestra en móviles. Usamos el mismo componente ya definido para ahorrar código */}
-      <Sidebar
-        mobileOpen={sidebarOpen}
-        mobileClose={handleToggleSidebar}
-      />
+      <Sidebar mobileOpen={sidebarOpen} mobileClose={handleToggleSidebar} />
+      {/* Diálogo de confirmación de logout */}
+      <LogoutDialog open={logoutDialogOpen} onClose={closeLogoutDialog} />
     </Box>
   );
 }

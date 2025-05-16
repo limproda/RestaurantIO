@@ -23,10 +23,13 @@ import IncomeForm from "../features/transactions/incomes/Income.jsx"
 import ExpenseForm from "../features/transactions/expenses/Expense.jsx"
 import ViewIncome from "../features/transactions/incomes/viewIncome.jsx"
 import ViewExpense from "../features/transactions/expenses/viewExpense.jsx"
+import Payrolls from "../features/payrolls/Payrolls";
+import Punch from "../features/punch/Punch";
 
 // Empleado
 //import EmployeeWorkingTime    from '../pages/EmployeeWorkingTime';
 //import EmployeeCheckPayrolls  from '../pages/EmployeeCheckPayrolls';
+import EmployeePayroll from "../features/payrolls/EmployeePayroll.jsx"
 
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
@@ -97,6 +100,7 @@ export default function AppRoutes() {
         <Route path="transactions/new/expense" element={<ExpenseForm />} />
         <Route path="transactions/expense/edit/:id" element={<ExpenseForm />} />
         <Route path="transactions/expense/view/:id" element={<ViewExpense />} />
+        <Route path="payroll" element={<Payrolls />} />
       </Route>
       
       {/* Rutas del empleado */}
@@ -111,6 +115,8 @@ export default function AppRoutes() {
       >
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="settings" element={<UserProfile />} />
+        <Route path="payroll" element={<EmployeePayroll />} />
+        <Route path="punch" element={<Punch />} />
         {/* Resto de rutas del empleado */}
       </Route>
 

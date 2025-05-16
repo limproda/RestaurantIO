@@ -6,13 +6,15 @@ export const menuOptions = {
       { name: "Empleados",      icon: "PeopleRoundedIcon",     path: "/admin/employees" },
       { name: "Nóminas",        icon: "FilePresentRoundedIcon",path: "/admin/payroll" },
       { name: "Ajustes",        icon: "SettingsIcon",         path: "/admin/settings" },
+      { name: "Cerrar Sesión",  icon: "LogoutIcon",           path: "/login"},
     ],
   // Opciones para el caso del empleado
     empleado: [
       { name: "Panel",          icon: "HomeIcon",             path: "/employee/dashboard" },
       { name: "Horas",          icon: "CalendarMonthIcon",    path: "/employee/hours" },
-      { name: "Turnos",         icon: "AccessTimeIcon",       path: "/employee/shifts" },
+      { name: "Turnos",         icon: "AccessTimeIcon",       path: "/employee/punch" },
       { name: "Nóminas",        icon: "FilePresentRoundedIcon",path: "/employee/payroll" },
       { name: "Ajustes",        icon: "SettingsIcon",         path: "/employee/settings" },
+      { name: "Cerrar Sesión",  icon: "LogoutIcon",           path: "/login"},
     ],
   };

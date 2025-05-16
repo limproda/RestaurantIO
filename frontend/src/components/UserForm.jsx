@@ -19,24 +19,26 @@ import PersonIcon from "@mui/icons-material/Person";
 import { PasswordField } from "./PasswordField";
 
 export function UserForm({
-  user,                 // datos del usuario a mostrar
-  loading,              // indicador de carga
-  submitting,           // indicador de envío
-  onFieldChange,        // handler para inputs de texto
-  onDateChange,         // handler para DatePicker
-  onSubmit,             // handler de submit
-  onDelete,             // función opcional de borrado
-  onCancel,             // función opcional de cancelación
-  showDelete = false,  // muestra botón borrar
-  passwordRequire,      // indica si la contraseña es obligatoria
-  readOnly = false,     // indica si el formulario es de solo lectura
+  user,                       // Datos del usuario a mostrar
+  loading,                    // Indicador de carga
+  submitting,                 // Indicador de envío
+  onFieldChange,              // Handler para inputs de texto
+  handleProfilePicChange,     // Handler para la foto de perfil
+  newProfilePreview,          // Preview de la nueva foto seleccionada antes de ser guardada
+  onDateChange,               // Handler para DatePicker
+  onSubmit,                   // Handler de submit
+  onDelete,                   // Función opcional de borrado
+  onCancel,                   // Función opcional de cancelación
+  showDelete = false,         // Muestra el botón de borrar
+  passwordRequire,            // Indica si la contraseña es obligatoria
+  readOnly = false,           // Indica si el formulario es de solo lectura
 }) {
   if (loading || !user) {
     return <CircularProgress />;
   }
 
   const isAdmin = user.role?.toLowerCase() === "administrador";
-  
+
   return (
     <Box
       component="form"
@@ -46,7 +48,13 @@ export function UserForm({
       <Grid container spacing={2}>
         {/* Avatar */}
         <Grid size={12} container justifyContent="center">
-          {user.profilePictureUrl ? (
+          {/* mostrar preview si existe, si no la URL, si no icono */}
+          {newProfilePreview ? (
+            <Avatar
+              src={newProfilePreview}
+              sx={{ width: 250, height: 250 }}
+            />
+          ) : user.profilePictureUrl ? (
             <Avatar
               src={user.profilePictureUrl}
               sx={{ width: 250, height: 250 }}
@@ -54,6 +62,24 @@ export function UserForm({
           ) : (
             <PersonIcon sx={{ fontSize: 250 }} />
           )}
+
+          {/* Input oculto usado para subir el fichero de la foto */}
+          <input
+            id="profile-picture-input"
+            type="file"
+            accept="image/jpeg,image/png,image/jpg,image/webp"
+            style={{ display: "none" }}
+            onChange={handleProfilePicChange}
+            disabled={readOnly || submitting}
+          />
+          <label
+            htmlFor="profile-picture-input"
+            style={{ width: "100%", textAlign: "center", marginTop: 8 }}
+          >
+            <Button component="span" disabled={readOnly || submitting} sx={{ mb: "1rem"}}>
+              {submitting ? "Subiendo..." : "Cambiar foto"}
+            </Button>
+          </label>
         </Grid>
 
         {/* Nombre */}

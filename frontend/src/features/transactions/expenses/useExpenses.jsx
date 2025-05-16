@@ -102,15 +102,15 @@ export default function useExpenses() {
         } else {
           // Si no hay id, creamos nuevo gasto
           res = await createExpense(expense);
-          notify("success", res.data.message || "Ingreso añadido con éxito");
-          navigate("/admin/transactions"); // redirigimos al listado
+          notify("success", res.data.message || "Gasto añadido con éxito");
+          navigate(-1); // redirigimos a la página anterior
           return;
         }
 
         const { success, message } = res.data;
         if (success) {
-          notify("success", message || "Ingreso actualizado correctamente");
-          navigate("/admin/transactions");
+          notify("success", message || "Gasto actualizado correctamente");
+          navigate(-1);
         } else {
           notify("error", message || "No se pudo actualizar el gasto");
         }
@@ -138,7 +138,7 @@ export default function useExpenses() {
       const { success, message } = res.data;
       if (success) {
         notify("success", message || "Ingreso eliminado correctamente");
-        navigate("/admin/transactions");
+        navigate(-1);
       } else {
         notify("error", message || "No se pudo eliminar el gasto");
       }
