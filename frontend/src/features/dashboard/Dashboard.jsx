@@ -9,6 +9,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useRole } from "../role/useRole";
 import PunchDialog from "../punch/PunchDialog";
+import EmployeeSummaryCards from "../../components/EmployeeSummaryCards";
 
 function Dashboard() {
   const { isAdmin } = useRole();
@@ -60,7 +61,7 @@ function Dashboard() {
       </Typography>
       <Box display="flex" height="60vh" flexDirection="column" gap="2rem">
         {isAdmin && <TransactionsSummaryCards />} {/* Mostramos el resumen de información del administrador */}
-       {/*  {!isAdmin && <EmployeeSummaryCards/>} {/* Mostramos el resumen de información del empleado   */} 
+        {!isAdmin && <EmployeeSummaryCards />} {/* Mostramos el resumen de información del empleado */}
         <Grid container spacing={2} columns={12} sx={{ mt: "3rem" }}>
           {itemsToShow.map(({ label, Icon, link, action }, idx) => (
             <Grid

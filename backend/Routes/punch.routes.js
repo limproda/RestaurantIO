@@ -7,7 +7,7 @@ import {
   getShiftsByEmployee,
   getPunchesByEmployee,
 } from "../Controllers/punch.controller.js";
-import { getWorkingTimeByEmployee } from "../Controllers/worktime.controller.js";
+import { getWorkingTimeByEmployee, getTransactionsSummary } from "../Controllers/worktime.controller.js";
 import { userVerification, verifyAdmin, verifyAdminOrOwner } from "../Middlewares/auth.middleware.js";
 
 const router = Router();
@@ -27,4 +27,6 @@ router.get("/working-time", userVerification, getWorkingTimeByEmployee);
 router.patch("/:id", userVerification, verifyAdmin, updatePunch);
 router.delete("/:id", userVerification, verifyAdmin, deletePunch);
 
+// RUTAS DE SUMMARY
+router.get("/summary", userVerification, getTransactionsSummary); // Resumen mensual (mes + horas)
 export default router;

@@ -181,6 +181,21 @@ export default function ViewEmployeePage() {
           </Grid>
         </Grid>
       </Paper>
+      
+      {/* Sección de Nóminas */}
+      <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
+        <Typography variant="h6" gutterBottom>
+          Nóminas del Empleado
+        </Typography>
+        <Divider sx={{ mb: 2 }} />
+        <PayrollsTable
+          payrolls={payrolls}
+          loading={payrollsLoading}
+          showEmployeeColumn={false}
+          showDeleteButton={true}
+          deletePayroll={handleDeletePayroll}
+        />
+      </Paper>
 
       {/* Sección de Puncheos */}
       <Paper elevation={3} sx={{ p: 4 }}>
@@ -196,20 +211,6 @@ export default function ViewEmployeePage() {
         />
       </Paper>
 
-      {/* Sección de Nóminas */}
-      <Paper elevation={3} sx={{ p: 4, mb: 4 }}>
-        <Typography variant="h6" gutterBottom>
-          Nóminas del Empleado
-        </Typography>
-        <Divider sx={{ mb: 2 }} />
-        <PayrollsTable
-          payrolls={payrolls}
-          loading={payrollsLoading}
-          showEmployeeColumn={false}
-          showDeleteButton={true}
-          deletePayroll={handleDeletePayroll}
-        />
-      </Paper>
       {/* Diálogo de gestión de puncheos */}
       <PunchDialog
         open={manage.open}
