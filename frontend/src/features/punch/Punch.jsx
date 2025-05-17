@@ -27,8 +27,7 @@ export default function Punch() {
       >
         {/* Título */}
         <Typography variant="h1" gutterBottom>
-          {" "}
-          Control de Fichajes{" "}
+          Control de Turnos
         </Typography>
         {/* Botón de fichar ahora */}
         <Button variant="contained" onClick={() => setClockOpen(true)}>
@@ -38,7 +37,7 @@ export default function Punch() {
 
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h6" gutterBottom>
-          Historial de Fichajes
+          Historial de Turnos
         </Typography>
         <Divider sx={{ mb: 2 }} />
 

@@ -10,21 +10,21 @@ export const userVerification = async (req, res, next) => {
     if (!token) {
       return res
         .status(401)
-        .json({ status: false, message: "No se ha recibido token" }); // Error de token no recibido
+        .json({ success: false, message: "No se ha recibido token" }); // Error de token no recibido
     }
 
     jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
       if (err) {
         return res
           .status(401)
-          .json({ status: false, message: "Token inválido" }); // Error de token inválido
+          .json({ success: false, message: "Token inválido" }); // Error de token inválido
       }
 
       const user = await User.findById(data.id);
       if (!user) {
         return res
           .status(404)
-          .json({ status: false, message: "Usuario no encontrado" }); // Error de usuario no encontrado
+          .json({ success: false, message: "Usuario no encontrado" }); // Error de usuario no encontrado
       }
 
       req.user = user;
@@ -34,14 +34,14 @@ export const userVerification = async (req, res, next) => {
     console.error("Error en userVerification middleware:", error);
     res
       .status(500)
-      .json({ status: false, message: "Error interno del servidor" }); // Error interno del servidor
+      .json({ success: false, message: "Error interno del servidor" }); // Error interno del servidor
   }
 };
 
 // Función para verificar que el usuario es administrador, en caso contrario, denegamos el acceso
 export function verifyAdmin(req, res, next) {
   if (req.user.role.toLowerCase() !== "administrador") {
-    return res.status(403).json({ message: "Acceso denegado" });
+    return res.status(403).json({ success: false, message: "Acceso denegado" });
   }
   next();
 }
@@ -52,7 +52,7 @@ export const verifyAdminOrOwner = (req, res, next) => {
   const { employeeId } = req.params;
 
   // Si es admin, se continúa
-  if (role.toLowerCase() == "administrador") return next();
+  if (role.toLowerCase() === "administrador") return next();
 
   // Si es usuario es él mismo, es decir, el empleado, se continúa
   if (userId === employeeId) return next();
@@ -60,6 +60,6 @@ export const verifyAdminOrOwner = (req, res, next) => {
   // Si no, prohibido
   return res.status(403).json({
     success: false,
-    message: "No tienes permisos para ver estas nóminas",
+    message: "No tienes permisos para ver estos datos",
   });
 };

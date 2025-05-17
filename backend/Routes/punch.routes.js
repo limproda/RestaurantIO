@@ -1,12 +1,13 @@
 import { Router } from "express";
 import {
   punchClock,
-  getPunchesByEmployee,
   updatePunch,
   deletePunch,
   createPunchManual,
-  getShiftsByEmployee
+  getShiftsByEmployee,
+  getPunchesByEmployee,
 } from "../Controllers/punch.controller.js";
+import { getWorkingTimeByEmployee } from "../Controllers/worktime.controller.js";
 import { userVerification, verifyAdmin, verifyAdminOrOwner } from "../Middlewares/auth.middleware.js";
 
 const router = Router();
@@ -15,8 +16,12 @@ const router = Router();
 router.post("/punch", userVerification, punchClock);
 router.post("/", userVerification, verifyAdminOrOwner, createPunchManual);
 
-// GET - Listar puncheos (propio o admin)
+// GET - Listar puncheos (propio o admin) y obtener resumen de un empleado 
 router.get("/employee/:employeeId", userVerification, verifyAdminOrOwner, getShiftsByEmployee);
+router.get("/employee/punches", userVerification, getPunchesByEmployee);
+
+// GET - Obtener horas trabajadas por empleado
+router.get("/working-time", userVerification, getWorkingTimeByEmployee);
 
 // PATCH/DELETE - Solo admin puede modificar o borrar
 router.patch("/:id", userVerification, verifyAdmin, updatePunch);

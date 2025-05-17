@@ -1,5 +1,36 @@
 import Punch from "../Models/PunchModel.js";
 
+const formatDuration = (ms) => {
+  const totalMin = Math.floor(ms / 60000);  // Convertir milisegundos a minutos
+  const hours    = Math.floor(totalMin / 60); // Obtener horas
+  const minutes  = totalMin % 60; // Obtener minutos restantes
+  return `${hours}h ${minutes}m`; // Devolvemos en forma de string
+};
+
+// Permite emparejar entradas y salidas
+export const pairShifts = (punches) => {
+  const shifts = [];
+
+  for (let i = 0; i < punches.length; i += 2) {
+    const entry = punches[i]; // Todos los impares, será entrada
+    const exit = punches[i + 1]; // Todos los pares, será salida
+    const entryDate = new Date(entry.timestamp); // Se crean los horarios de entrada
+    const exitDate = exit ? new Date(exit.timestamp) : null; // Se crean los horarios de salida, si los hay
+
+    // Añadimos el turno al array de turnos
+    shifts.push({
+      id: entry._id,
+      entryId: entry._id,
+      exitId: exit?._id || null,
+      date: entryDate,
+      entryTime: entryDate,
+      exitTime: exitDate,
+      duration: exitDate ? formatDuration(exitDate - entryDate) : "" // Creamos el string de horas calculadas
+    });
+  }
+  return shifts;
+};
+
 // Permite fichar la hora
 export const punchClock = async (req, res) => {
   const userId = req.user.id;
@@ -13,6 +44,9 @@ export const punchClock = async (req, res) => {
   const punch = await Punch.create({ employee: userId, type });
   res.json({ success: true, punch });
 };
+// Permite obtener los fichajes de un empleado (para uso interno)
+export const getPunches = async (employeeId) =>
+  Punch.find({ employee: employeeId }).sort({ timestamp: 1});
 
 // Obtenemos los fichajes de un empleado
 export const getPunchesByEmployee = async (req, res) => {
@@ -72,37 +106,13 @@ export const createPunchManual = async (req, res) => {
 export const getShiftsByEmployee = async (req, res) => {
   const { employeeId } = req.params;
   try {
-    const punches = await Punch.find({ employee: employeeId }).sort({ timestamp: 1 }); // Ordena por fecha ascendente
+    const punches = await getPunches(employeeId);
 
     // Calcular turnos
-    const shifts = [];
-    for (let i = 0; i < punches.length; i += 2) {
-      const entry = punches[i]; // Todos los impares, será entrada
-      const exit = punches[i + 1]; // Todos los pares, serán salida
-      const entryDate = new Date(entry.timestamp); // Se crean los horarios de entrada
-      const exitDate = exit ? new Date(exit.timestamp) : null; // Se crean los horarios de salida, si los hay
-      let durationStr = ""; // Inicializamos la duración del turno en una cadena vacía
-      if (exitDate) {
-        const diffMs = Math.abs(exitDate - entryDate); // Calculamos la diferencia entre hora de entrada y salida
-        const hours = Math.floor(diffMs / 1000 / 3600); // Pasamos de segundos a horas competas 
-        const mins = Math.round((diffMs / 1000 / 60) % 60); // Convertimos los milisegundos sobrantes en minutos
-        durationStr = `${hours}h ${mins}m`; // Creamos el string de horas calculadas
-      }
-      // Añadimos el turno al array de turnos
-      shifts.push({
-        id: entry._id,
-        entryId: entry._id,
-        exitId: exit?._id || null,
-        date: entryDate,
-        entryTime: entryDate,
-        exitTime: exitDate,
-        duration: durationStr,
-      });
-    }
-
-    res.json({ success: true, shifts });
+    const shifts = pairShifts(punches);
+    shifts.sort((a, b) => b.entryTime.getTime() - a.entryTime.getTime()); // Ordenar por fecha de entrada descendente
+    return res.json({ success: true, shifts });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: "Error al listar shifts" });
+    res.status(500).json({ success: false, message: "Error al obtener turnos" });
   }
 };

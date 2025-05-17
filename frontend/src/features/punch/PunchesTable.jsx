@@ -18,7 +18,6 @@ import { toTimeES, toDateES } from "../../utils/dateUtils";
     { field: "worked", headerName: "Horas Trabajadas", flex: 1, align: "center", headerAlign: "center" },
   ];
 
-
 export default function PunchesTable({ employeeId, isAdmin = false, onManage, refreshKey = 0 }) {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -84,7 +83,7 @@ export default function PunchesTable({ employeeId, isAdmin = false, onManage, re
       {isAdmin && (
         <Button variant="contained" sx={{ mb: 2 }} onClick={() => onManage("add")}>Añadir Fichaje Manual</Button> // Botón de añadir fichae de manera manual
       )}
-      <Box sx={{ height: 600, width: "100%" }}>
+      <Box sx={{ minHeight: 300, width: "100%" }}>
         <DataGrid rows={rows} columns={adminColumns} disableRowSelectionOnClick showToolbar getRowId={(r) => r.id} />
       </Box>
     </>

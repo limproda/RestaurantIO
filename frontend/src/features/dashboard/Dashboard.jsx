@@ -37,7 +37,7 @@ function Dashboard() {
     {
       label: "Horas trabajadas",
       Icon: CalendarMonthIcon,
-      link: "/employee/hours",
+      link: "/employee/punches/working-time",
     },
     {
       label: "Registrar turno",
@@ -60,6 +60,7 @@ function Dashboard() {
       </Typography>
       <Box display="flex" height="60vh" flexDirection="column" gap="2rem">
         {isAdmin && <TransactionsSummaryCards />} {/* Mostramos el resumen de información del administrador */}
+       {/*  {!isAdmin && <EmployeeSummaryCards/>} {/* Mostramos el resumen de información del empleado   */} 
         <Grid container spacing={2} columns={12} sx={{ mt: "3rem" }}>
           {itemsToShow.map(({ label, Icon, link, action }, idx) => (
             <Grid

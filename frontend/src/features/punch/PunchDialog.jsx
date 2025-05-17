@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { usePunch } from "./usePunch";
-import { toLocalSpain, toInputDateTimeValue } from "../../utils/dateUtils";
+import { toInputDateTimeValue } from "../../utils/dateUtils";
 
 export default function PunchDialog({
   open, // Determina si está visible o no
@@ -29,7 +29,7 @@ export default function PunchDialog({
   });
   // Ayuda a indicar un texto u otro en base al modo
   const titles = {
-    clock: "¿Registrar turno?",
+    clock: "Añade tu jornada laboral",
     add: "Añadir fichaje",
     edit: "Editar fichaje",
     delete: "Borrar fichaje",
@@ -50,9 +50,13 @@ export default function PunchDialog({
 
   // Escoge lo que se va a ejecutar en base al modo en el que estemos
   const handleConfirm = async () => {
-    await submit({ mode, employeeId, form, row });
-    if (onUpdated) onUpdated();
-    onClose();
+    try {
+      await submit({ mode, employeeId, form, row });
+      onUpdated?.();
+      onClose();
+    } catch {
+      // Dejamos al usuario para corregir si hubo error
+    }
   };
 
   // Definimos todos los textos en base al modo en el que estemos
@@ -60,12 +64,11 @@ export default function PunchDialog({
     // Si estamos en el modo edición, mostramos el texto
     if (mode === "clock")
       return (
-        <Typography sx={{ p: 2 }}>
-          ¿Quieres registrar tu turno ahora?
+        <Typography>
+          Se registrará tu turno ahora mismo
         </Typography>
       );
-
-      // Si estamos en modo borrado, mostramos los campos con los selectores de tipo
+    // Si estamos en modo borrado, mostramos los campos con los selectores de tipo
     if (mode === "delete")
       return (
         <>
@@ -73,14 +76,16 @@ export default function PunchDialog({
             select
             fullWidth
             label="Tipo"
-            value={form.type} // Indicamos el tipo del form 
+            value={form.type} // Indicamos el tipo del form
             onChange={(e) => setForm({ ...form, type: e.target.value })} // Setter para el tipo del form
-            sx={{ mb: 2 }} 
+            sx={{ mb: 2 }}
           >
             <MenuItem value="entrada">Entrada</MenuItem>
             <MenuItem value="salida">Salida</MenuItem>
           </TextField>
-          <Typography>¿Seguro que deseas borrar este fichaje? No se puede deshacer</Typography>
+          <Typography>
+            ¿Seguro que deseas borrar este fichaje? No se puede deshacer
+          </Typography>
         </>
       );
 
@@ -98,10 +103,12 @@ export default function PunchDialog({
 
             // Si el modo es el de edición, debemos escoger qué modificar
             if (mode === "edit") {
-              const timestamp = newType === "entrada" ? row.entryTime : row.exitTime; // Asignamos la hora que ya había guardada
-              newTimestamp = timestamp ? toInputDateTimeValue(new Date(timestamp)) : "";
+              const timestamp =
+                newType === "entrada" ? row.entryTime : row.exitTime; // Asignamos la hora que ya había guardada
+              newTimestamp = timestamp
+                ? toInputDateTimeValue(new Date(timestamp))
+                : "";
             }
-
             setForm({ type: newType, timestamp: newTimestamp }); // Setter para el formulario
           }}
           sx={{ mb: 2 }}
@@ -121,9 +128,14 @@ export default function PunchDialog({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth> {/* Mostramos el dialogo */}
-      <DialogTitle>{titles[mode]}</DialogTitle>                 {/* Titúlo del dialogo */}
-      {mode !== "clock" && <DialogContent>{showForm()}</DialogContent>} {/* Mostramos el formulario si es diferente a fichar*/}
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+      {" "}
+      {/* Mostramos el dialogo */}
+      <DialogTitle>{titles[mode]}</DialogTitle> {/* Titúlo del dialogo */}
+      {["clock", "add", "edit", "delete"].includes(mode) && (
+        <DialogContent>{showForm()}</DialogContent>
+      )}{" "}
+      {/* Mostramos el formulario si es diferente a fichar*/}
       <DialogActions sx={{ px: 3, pb: 2 }}>
         <Button onClick={onClose}>Cancelar</Button>
         <Button

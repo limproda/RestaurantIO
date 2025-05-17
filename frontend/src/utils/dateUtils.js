@@ -1,3 +1,5 @@
+const TZ = "Europe/Madrid"; // Zona horaria de España
+
 // Formateo de fechas y horas a formato español
 export function toLocalSpain(date) {
   // Formato para fechas: DD-MM-YYYY
@@ -5,6 +7,7 @@ export function toLocalSpain(date) {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
+    timeZone: TZ,
   });
 
   // Formato para horas: hh:mm (24h)
@@ -12,6 +15,7 @@ export function toLocalSpain(date) {
     hour12: false,
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: TZ,
   });
 
   return `${datePart} ${timePart}`;

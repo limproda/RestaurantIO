@@ -30,6 +30,7 @@ import Punch from "../features/punch/Punch";
 //import EmployeeWorkingTime    from '../pages/EmployeeWorkingTime';
 //import EmployeeCheckPayrolls  from '../pages/EmployeeCheckPayrolls';
 import EmployeePayroll from "../features/payrolls/EmployeePayroll.jsx"
+import WorkingTime from "../features/workingTime/WorkingTime";
 
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
@@ -117,6 +118,7 @@ export default function AppRoutes() {
         <Route path="settings" element={<UserProfile />} />
         <Route path="payroll" element={<EmployeePayroll />} />
         <Route path="punch" element={<Punch />} />
+        <Route path="punches/working-time" element={<WorkingTime />} />
         {/* Resto de rutas del empleado */}
       </Route>
 
