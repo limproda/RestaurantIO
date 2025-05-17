@@ -3,3 +3,4 @@ backend/.env
 frontend/node_modules/
 frontend/.env
 firebase-debug.log
+node_modules/

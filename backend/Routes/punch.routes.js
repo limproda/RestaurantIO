@@ -17,8 +17,8 @@ router.post("/punch", userVerification, punchClock);
 router.post("/", userVerification, verifyAdminOrOwner, createPunchManual);
 
 // GET - Listar puncheos (propio o admin) y obtener resumen de un empleado 
-router.get("/employee/:employeeId", userVerification, verifyAdminOrOwner, getShiftsByEmployee);
 router.get("/employee/punches", userVerification, getPunchesByEmployee);
+router.get("/employee/:employeeId", userVerification, verifyAdminOrOwner, getShiftsByEmployee);
 
 // GET - Obtener horas trabajadas por empleado
 router.get("/working-time", userVerification, getWorkingTimeByEmployee);
