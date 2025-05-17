@@ -11,7 +11,7 @@ export const menuOptions = {
   // Opciones para el caso del empleado
     empleado: [
       { name: "Panel",          icon: "HomeIcon",             path: "/employee/dashboard" },
-      { name: "Horas",          icon: "CalendarMonthIcon",    path: "/employee/punches/working-time" },
+      { name: "Ver horas",          icon: "CalendarMonthIcon",    path: "/employee/punches/working-time" },
       { name: "Turnos",         icon: "AccessTimeIcon",       path: "/employee/punch" },
       { name: "Nóminas",        icon: "FilePresentRoundedIcon",path: "/employee/payroll" },
       { name: "Ajustes",        icon: "SettingsIcon",         path: "/employee/settings" },

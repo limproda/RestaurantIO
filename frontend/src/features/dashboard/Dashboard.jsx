@@ -35,7 +35,7 @@ function Dashboard() {
   // Opciones de los empleados
   const userItems = [
     {
-      label: "Horas trabajadas",
+      label: "Ver horas trabajadas",
       Icon: CalendarMonthIcon,
       link: "/employee/punches/working-time",
     },
