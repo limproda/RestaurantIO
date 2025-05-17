@@ -12,10 +12,10 @@ import { toTimeES, toDateES } from "../../utils/dateUtils";
 
   // Columnas base que se muestran tanto para empleados como administradores
   const columns = [
-    { field: "date", headerName: "Fecha", flex: 1, align: "center", headerAlign: "center" },
+    { field: "date", headerName: "Fecha", minWidth: 120, flex: 1, align: "center", headerAlign: "center" },
     { field: "entry", headerName: "Entrada", width: 120, align: "center", headerAlign: "center" },
     { field: "exit", headerName: "Salida", width: 120, align: "center", headerAlign: "center" },
-    { field: "worked", headerName: "Horas Trabajadas", flex: 1, align: "center", headerAlign: "center" },
+    { field: "worked", headerName: "Horas Trabajadas", minWidth: 180, flex: 1, align: "center", headerAlign: "center" },
   ];
 
 export default function PunchesTable({ employeeId, isAdmin = false, onManage, refreshKey = 0 }) {

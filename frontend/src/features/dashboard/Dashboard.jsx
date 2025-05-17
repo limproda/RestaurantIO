@@ -59,7 +59,7 @@ function Dashboard() {
       <Typography variant="h1" sx={{ mb: 3 }}>
         Panel de Control
       </Typography>
-      <Box display="flex" height="60vh" flexDirection="column" gap="2rem">
+      <Box display="flex" flexDirection="column" gap="2rem">
         {isAdmin && <TransactionsSummaryCards />} {/* Mostramos el resumen de información del administrador */}
         {!isAdmin && <EmployeeSummaryCards />} {/* Mostramos el resumen de información del empleado */}
         <Grid container spacing={2} columns={12} sx={{ mt: "3rem" }}>

@@ -7,6 +7,7 @@ export default function WorkingTimeTable({ rows = [], loading }) {
       field: "date",
       headerName: "Fecha",
       flex: 1,
+      minWidth: 150,
       headerAlign: "center",
       align: "center",
     },
@@ -15,7 +16,8 @@ export default function WorkingTimeTable({ rows = [], loading }) {
       headerName: "Horas trabajadas",
       headerAlign: "center",
       align: "center",
-      flex: 1,
+      flex: 2,
+      minWidth: 250,
       renderCell: (params) => {
         const hours = params.row.hours || 0;
         const minutes = params.row.minutes || 0;

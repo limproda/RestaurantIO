@@ -42,6 +42,7 @@ export default function PayrollsTable({
       cols.push({
         field: "employeeName", // El campo será el nuevo campo creado
         headerName: "Empleado",
+        minWidth: 220,
         flex: 1,
         renderCell: (params) => {
           const fullName = params.value; // Por defecto es el string para ver si existe el nombre
@@ -81,7 +82,7 @@ export default function PayrollsTable({
       cols.push({
         field: "actions",
         headerName: "Acciones",
-        width: showDeleteButton ? 350 : 200,
+        minWidth: showDeleteButton ? 250 : 200,
         headerAlign: "center",
         align: "center",
         sortable: false,
@@ -114,7 +115,7 @@ export default function PayrollsTable({
     cols.push({
       field: "createdAt",
       headerName: "Fecha de Creación",
-      width: 200,
+      minWidth: 200,
       headerAlign: "center",
       align: "center",
       flex: 1,

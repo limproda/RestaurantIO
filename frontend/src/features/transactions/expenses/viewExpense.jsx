@@ -72,8 +72,16 @@ export default function ViewExpensePage() {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Stack direction="row" justifyContent="space-between" mb={3}>
-        <Typography variant="h1">Detalles del Gasto</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          mb: 2,
+          gap: "1rem",
+        }}
+      >        <Typography variant="h1">Detalles del Gasto</Typography>
         <Stack direction="row" spacing={2}>
           <Button
             variant="outlined"
@@ -90,7 +98,7 @@ export default function ViewExpensePage() {
             Volver
           </Button>
         </Stack>
-      </Stack>
+      </Box>
 
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, md: 6 }}>

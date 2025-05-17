@@ -104,7 +104,7 @@ export default function TransactionsTable({
       {
         field: "deductible",
         headerName: "Deducible",
-        width: 100,
+        width: 135,
         sortable: false,
         headerAlign: "center",
         align: "center",
