@@ -16,7 +16,7 @@ import UserProfile from "../features/userProfile/UserProfilePage"
 import Employees from "../features/employees/EmployeesPage";
 import EmployeesEdit from "../features/employees/editEmployee/EmployeeEditPage";
 import NewEmployee from "../features/employees/newEmployee/NewEmployeePage";
-import ViewEmployee from "../features/employees/viewEmployee/viewEmployeePage";
+import ViewEmployee from "../features/employees/viewEmployee/ViewEmployeePage";
 import Transactions from "../features/transactions/TransactionsPage"
 import IncomeForm from "../features/transactions/incomes/IncomePage"
 import ExpenseForm from "../features/transactions/expenses/ExpensePage"
