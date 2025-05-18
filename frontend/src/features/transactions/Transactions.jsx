@@ -50,7 +50,7 @@ export default function Transactions() {
       </Box>
 
       {/* Sección de tarjetas de resumen */}
-      <TransactionsSummaryCards />
+      <TransactionsSummaryCards summary={summary} loading={loading} />
 
       {/* Tabla con el contenido */}
       <Box>

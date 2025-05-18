@@ -10,11 +10,15 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useRole } from "../role/useRole";
 import PunchDialog from "../punch/PunchDialog";
 import EmployeeSummaryCards from "../../components/EmployeeSummaryCards";
+import { useTransactions } from "../transactions/useTransactions";
 
 function Dashboard() {
   const { isAdmin } = useRole();
   const navigate = useNavigate();
   const [openPunch, setOpenPunch] = useState(false);
+  if (isAdmin) {
+    const { summary, loading } = useTransactions(); // Devuelve listado, resumen, estado de carga y función de eliminación
+  }
   // Opciones del administrador
   const adminItems = [
     {
@@ -43,7 +47,7 @@ function Dashboard() {
     {
       label: "Registrar turno",
       Icon: AccessTimeIcon,
-      action: () => setOpenPunch(true)
+      action: () => setOpenPunch(true),
     },
     {
       label: "Nóminas",
@@ -60,8 +64,10 @@ function Dashboard() {
         Panel de Control
       </Typography>
       <Box display="flex" flexDirection="column" gap="2rem">
-        {isAdmin && <TransactionsSummaryCards />} {/* Mostramos el resumen de información del administrador */}
-        {!isAdmin && <EmployeeSummaryCards />} {/* Mostramos el resumen de información del empleado */}
+        {isAdmin && <TransactionsSummaryCards summary={summary} loading={loading} />}
+        {/* Mostramos el resumen de información del administrador */}
+        {!isAdmin && <EmployeeSummaryCards />}
+        {/* Mostramos el resumen de información del empleado */}
         <Grid container spacing={2} columns={12} sx={{ mt: "3rem" }}>
           {itemsToShow.map(({ label, Icon, link, action }, idx) => (
             <Grid
@@ -79,7 +85,7 @@ function Dashboard() {
                 sx={{
                   width: "100%",
                   maxWidth: 300,
-                  height: 200, 
+                  height: 200,
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",

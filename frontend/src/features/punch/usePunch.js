@@ -9,8 +9,8 @@ export function usePunch() {
   // Acciones según el modo en el que estemos
   const actions = {
     clock: {
-      run: async () => clockPunch(),
-      message: ({ punch }) => `Fichaje registrado como ${punch.type}`,
+      run: async () => await clockPunch(),
+      message: (res) => `Fichaje registrado como ${res.punch.type}`,
     },
 
     add: {
@@ -35,12 +35,12 @@ export function usePunch() {
     },
   };
 
-
   const submit = async (payload) => {
     const { mode = "clock" } = payload; // Desestructuramos el modo, asignando fichar por defecto
     setLoading(true);
     try {
       const res = await actions[mode].run(payload); // Esperamos por la respuesta
+      console.log("Respuesta en submit:", res);
       if (!res.success) throw new Error(res.message); // Si la respuesta es errónea, mandamos mensaje de error
       notify("success", actions[mode].message(res)); // Si la respuesta es correcta, lo notificamos
       return res;
