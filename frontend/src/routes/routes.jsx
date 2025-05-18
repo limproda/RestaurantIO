@@ -8,29 +8,26 @@ import MainLayout from "../layout/MainLayout";
 import { Login, Signup } from "../pages";
 
 // Páginas de layout / genéricas
-import NotFound from "../pages/NotFound";
-import Dashboard from "../features/dashboard/Dashboard";
-import UserProfile from "../features/userProfile/userProfile"
-//import Settings from '../pages/AdminSettings';
+import NotFound from "../pages/NotFoundPage";
+import Dashboard from "../features/dashboard/DashboardPage";
+import UserProfile from "../features/userProfile/UserProfilePage"
 
 // Admin
-import Employees from "../features/employees/Employees";
-import EmployeesEdit from "../features/employees/editEmployee/employeeEdit";
-import NewEmployee from "../features/employees/newEmployee/newEmployee";
-import ViewEmployee from "../features/employees/viewEmployee/viewEmployee";
-import Transactions from "../features/transactions/Transactions"
-import IncomeForm from "../features/transactions/incomes/Income.jsx"
-import ExpenseForm from "../features/transactions/expenses/Expense.jsx"
-import ViewIncome from "../features/transactions/incomes/viewIncome.jsx"
-import ViewExpense from "../features/transactions/expenses/viewExpense.jsx"
-import Payrolls from "../features/payrolls/Payrolls";
-import Punch from "../features/punch/Punch";
+import Employees from "../features/employees/EmployeesPage";
+import EmployeesEdit from "../features/employees/editEmployee/EmployeeEditPage";
+import NewEmployee from "../features/employees/newEmployee/NewEmployeePage";
+import ViewEmployee from "../features/employees/viewEmployee/viewEmployeePage";
+import Transactions from "../features/transactions/TransactionsPage"
+import IncomeForm from "../features/transactions/incomes/IncomePage"
+import ExpenseForm from "../features/transactions/expenses/ExpensePage"
+import ViewIncome from "../features/transactions/incomes/ViewIncomePage"
+import ViewExpense from "../features/transactions/expenses/ViewExpensePage"
+import Payrolls from "../features/payrolls/PayrollsPage";
+import Punch from "../features/punch/PunchPage";
 
 // Empleado
-//import EmployeeWorkingTime    from '../pages/EmployeeWorkingTime';
-//import EmployeeCheckPayrolls  from '../pages/EmployeeCheckPayrolls';
-import EmployeePayroll from "../features/payrolls/EmployeePayroll.jsx"
-import WorkingTime from "../features/workingTime/WorkingTime";
+import EmployeePayroll from "../features/payrolls/EmployeePayrollPage"
+import WorkingTime from "../features/workingTime/WorkingTimePage";
 
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";

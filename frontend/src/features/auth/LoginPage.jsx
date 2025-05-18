@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from '@mui/material';
-import { useLogin } from './useLogin';
-import LoginForm from './LoginForm';
+import { useLogin } from './useLogin.jsx';
+import LoginForm from './LoginForm.jsx';
 import AnimatedGradientBox from '../../components/AnimatedGradiendBox.jsx';
 
 const Login = () => {

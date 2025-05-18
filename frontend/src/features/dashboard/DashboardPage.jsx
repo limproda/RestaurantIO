@@ -16,9 +16,8 @@ function Dashboard() {
   const { isAdmin } = useRole();
   const navigate = useNavigate();
   const [openPunch, setOpenPunch] = useState(false);
-  if (isAdmin) {
-    const { summary, loading } = useTransactions(); // Devuelve listado, resumen, estado de carga y función de eliminación
-  }
+  const { summary, loading } = useTransactions(); // Nos permite recargar el resumen de transacciones
+
   // Opciones del administrador
   const adminItems = [
     {

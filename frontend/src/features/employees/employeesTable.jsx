@@ -29,7 +29,7 @@ export default function EmployeesTable() {
     {
       field: "profilePictureUrl",
       headerName: "Foto",
-      width: 80,
+      width: 120,
       sortable: false,
       headerAlign: "center", // centra el encabezado
       renderCell: (params) => (

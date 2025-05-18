@@ -3,7 +3,7 @@ import { Typography, Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useTransactions } from "./useTransactions.jsx";
 import TransactionsSummaryCards from "../../components/TransactionsSummaryCards.jsx";
-import TransactionsTable from "./TransactionsTable";
+import TransactionsTable from "./TransactionsTable.jsx";
 
 // Componente principal para gestionar transacciones (ingresos y gastos)
 export default function Transactions() {

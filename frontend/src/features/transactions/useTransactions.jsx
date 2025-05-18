@@ -6,6 +6,7 @@ import {
   deleteExpense as apiDeleteExpense,
 } from "./transactionsApi";
 import { useNotification } from "../../components/NotificationProvider";
+import { useRole } from "../role/useRole";
 
 // Hook para gestionar la lógica de las transacciones
 export const useTransactions = () => {
@@ -13,9 +14,11 @@ export const useTransactions = () => {
   const [summary, setSummary] = useState(null); // Estado para el resumen
   const [loading, setLoading] = useState(true); // Estado de carga
   const { notify } = useNotification(); // Notificaciones
+  const { isAdmin } = useRole(); // Hook para obtener el rol del usuario
 
   // Carga inicial de ingresos y gastos
   useEffect(() => {
+    if(!isAdmin) return; // Si no es admin, no se cargan los datos
     setLoading(true); // Activamos el estado de carga
     getAllTransactions()
       .then((res) => {

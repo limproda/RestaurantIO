@@ -69,7 +69,7 @@ export default function SummaryCards() {
           {idx !== items.length - 1 ? (
             <Typography variant="caption">En el mes actual</Typography>
           ) : (
-            <Typography variant="caption">Para el siguiente cobro</Typography>
+            <Typography variant="caption">Para el siguiente sueldo</Typography>
           )}
         </Paper>
       ))}

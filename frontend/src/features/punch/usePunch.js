@@ -40,7 +40,6 @@ export function usePunch() {
     setLoading(true);
     try {
       const res = await actions[mode].run(payload); // Esperamos por la respuesta
-      console.log("Respuesta en submit:", res);
       if (!res.success) throw new Error(res.message); // Si la respuesta es errónea, mandamos mensaje de error
       notify("success", actions[mode].message(res)); // Si la respuesta es correcta, lo notificamos
       return res;
