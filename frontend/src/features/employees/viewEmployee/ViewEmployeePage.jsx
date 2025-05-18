@@ -200,7 +200,7 @@ export default function ViewEmployeePage() {
       {/* Sección de Puncheos */}
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h6" gutterBottom>
-          Historial de Puncheos
+          Historial de Turnos
         </Typography>
         <Divider sx={{ mb: 2 }} />
         <PunchesTable
@@ -211,7 +211,7 @@ export default function ViewEmployeePage() {
         />
       </Paper>
 
-      {/* Diálogo de gestión de puncheos */}
+      {/* Diálogo de gestión de turnos */}
       <PunchDialog
         open={manage.open}
         mode={manage.mode}
