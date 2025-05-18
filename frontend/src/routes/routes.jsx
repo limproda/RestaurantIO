@@ -4,30 +4,27 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import MainLayout from "../layout/MainLayout";
 
-// Páginas públicas
-import { Login, Signup } from "../pages";
-
-// Páginas de layout / genéricas
-import NotFound from "../pages/NotFoundPage";
-import Dashboard from "../features/dashboard/DashboardPage";
-import UserProfile from "../features/userProfile/UserProfilePage"
-
-// Admin
-import Employees from "../features/employees/EmployeesPage";
-import EmployeesEdit from "../features/employees/editEmployee/EmployeeEditPage";
-import NewEmployee from "../features/employees/newEmployee/NewEmployeePage";
-import ViewEmployee from "../features/employees/viewEmployee/ViewEmployeePage";
-import Transactions from "../features/transactions/TransactionsPage"
-import IncomeForm from "../features/transactions/incomes/IncomePage"
-import ExpenseForm from "../features/transactions/expenses/ExpensePage"
-import ViewIncome from "../features/transactions/incomes/ViewIncomePage"
-import ViewExpense from "../features/transactions/expenses/ViewExpensePage"
-import Payrolls from "../features/payrolls/PayrollsPage";
-import Punch from "../features/punch/PunchPage";
-
-// Empleado
-import EmployeePayroll from "../features/payrolls/EmployeePayrollPage"
-import WorkingTime from "../features/workingTime/WorkingTimePage";
+// Importamos todas las páginas desde el archivo index
+import {
+  Login,
+  Signup,
+  Dashboard,
+  NotFound,
+  UserProfile,
+  Employee,
+  EmployeesEdit,
+  NewEmployee,
+  ViewEmployee,
+  Transactions,
+  IncomeForm,
+  ExpenseForm,
+  ViewIncome,
+  ViewExpense,
+  Payrolls,
+  Punch,
+  EmployeePayroll,
+  WorkingTime
+} from "../pages";
 
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
@@ -84,9 +81,8 @@ export default function AppRoutes() {
           </PrivateRoute>
         }
       >
-        {/* Aquí añadimos todas las rutas del administrador*/}
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="employees" element={<Employees />} />
+        <Route path="employees" element={<Employee />} />
         <Route path="employees/edit/:id" element={<EmployeesEdit />} />
         <Route path="employees/view/:id" element={<ViewEmployee />} />
         <Route path="employees/new" element={<NewEmployee />} />
@@ -106,7 +102,6 @@ export default function AppRoutes() {
         path="/employee"
         element={
           <PrivateRoute user={user} allowedRoles={["empleado"]}>
-            {/* Aquí añadimos todas las rutas del empleado*/}
             <MainLayout />
           </PrivateRoute>
         }
@@ -116,7 +111,6 @@ export default function AppRoutes() {
         <Route path="payroll" element={<EmployeePayroll />} />
         <Route path="punch" element={<Punch />} />
         <Route path="punches/working-time" element={<WorkingTime />} />
-        {/* Resto de rutas del empleado */}
       </Route>
 
       {/* Catch‑all para los errores */}
