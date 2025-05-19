@@ -1,0 +1,12 @@
+services:
+  backend:
+    build: ./backend
+    env_file: ./backend/.env
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"          # Producción: http://localhost:8080
+    depends_on:
+      - backend

@@ -23,7 +23,7 @@ import {
 } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { useIncomeView } from "./useIncomeView";
-import { incomeCategories } from "../../../../../backend/Models/IncomeModel";
+import { incomeCategories } from "../transactionsCategories.js";
 
 const InfoField = ({ icon: Icon, label, value, description, color }) => (
   <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>

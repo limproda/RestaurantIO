@@ -25,7 +25,7 @@ import {
 } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { useExpenseView } from "./useExpenseView";
-import { expenseCategories } from "../../../../../backend/Models/ExpenseModel";
+import { expenseCategories } from "../transactionsCategories.js";
 
 
 const InfoField = ({ icon: Icon, label, value, description, color }) => (

@@ -12,9 +12,8 @@ import punchRoutes from "./Routes/punch.routes.js";
 const __dirname = path.resolve(); // Obtener el directorio actual
 const app = express();
 
-// Otros middlewares
-app.use(cookieParser());
-app.use(express.json());
+app.use(cookieParser()); // Middleware para parsear cookies
+app.use(express.json()); // Middleware para parsear el cuerpo de las peticiones
 
 // Sirve para permitir el acceso a la API desde el frontend en modo desarrollo
 if (process.env.NODE_ENV === "development") {
@@ -28,14 +27,12 @@ if (process.env.NODE_ENV === "development") {
   );
 }
 
-app.use(cookieParser()); // Middleware para parsear cookies
-app.use(express.json()); // Middleware para parsear el cuerpo de las peticiones
-app.use("/", authRoute); // Rutas de autenticación
-app.use("/employees", employeesRoutes); // Rutas para gestionar empleados
-app.use("/settings", settingsRoutes); // Rutas para modificar el perfil de usuario
-app.use("/transactions", transactionsRoutes); // Rutas para las transacciones
-app.use("/payrolls", payrollsRoutes); // Rutas de las nóminas
-app.use("/punches", punchRoutes); // Rutas para los registros de hora
+app.use("/api", authRoute); // Rutas de autenticación
+app.use("/api/employees", employeesRoutes); // Rutas para gestionar empleados
+app.use("/api/settings", settingsRoutes); // Rutas para modificar el perfil de usuario
+app.use("/api/transactions", transactionsRoutes); // Rutas para las transacciones
+app.use("/api/payrolls", payrollsRoutes); // Rutas de las nóminas
+app.use("/api/punches", punchRoutes); // Rutas para los registros de hora
 
 // Servir el frontend en producción
 if (process.env.NODE_ENV === "production") {

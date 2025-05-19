@@ -19,7 +19,7 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useNavigate, useParams } from "react-router-dom";
-import { expenseCategories } from "../../../../../backend/Models/ExpenseModel";
+import { expenseCategories } from "../transactionsCategories.js";
 import useExpenses from "./useExpenses";
 
 export default function ExpenseForm() {

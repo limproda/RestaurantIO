@@ -17,7 +17,7 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useNavigate, useParams } from "react-router-dom";
-import { incomeCategories } from "../../../../../backend/Models/IncomeModel";
+import { incomeCategories } from "../transactionsCategories.js";
 import useIncomes from "./useIncomes";
 
 export default function IncomeForm() {
