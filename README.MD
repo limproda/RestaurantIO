@@ -1,4 +1,3 @@
-
 # RestaurantIO
 RestaurantIO es una plataforma MERN (MongoDB + Express + React + Node) pensada para digitalizar la gestión diaria de un negocio de restauración.
 Incluye dos roles (Administrador y Empleado) y agrupa en una sola interfaz todo lo necesario para llevar el control operativo y financiero del negocio.
@@ -28,7 +27,7 @@ Credenciales de prueba:
 Requisitos: Node LTS (≥ 18) y npm.
 
 - Instala todas las dependencias de *frontend* y *backend*: npm run build
-- Instalar las dependencias del archivo principal con: npm install
+- Instala las dependencias en la carpeta principal: npm install
 - Arranca los dos servidores en modo desarrollo: npm run dev
 
 Abre tu navegador en http://localhost:5173 (el backend se levanta en 3000 automáticamente). 
