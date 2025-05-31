@@ -28,6 +28,7 @@ Credenciales de prueba:
 Requisitos: Node LTS (≥ 18) y npm.
 
 - Instala todas las dependencias de *frontend* y *backend*: npm run build
+- Instalar las dependencias del archivo principal con: npm install
 - Arranca los dos servidores en modo desarrollo: npm run dev
 
 Abre tu navegador en http://localhost:5173 (el backend se levanta en 3000 automáticamente). 
@@ -42,6 +43,9 @@ Requisitos: Docker Desktop.
 
 Luego visita http://localhost:8080 para usar la app en modo contenedor. 
 
+4. Otras consideraciones
+Si no se instala concurrently automáticamente, basta con hacer: npm install concurrently.
+Si no se encuentran las credenciales de Docker, podemos pulsar WIN + E, escribir "%USERPROFILE%/.docker", acceder al archivo config.json y borrar la línea que indica "credsStore": "desktop",". Con eso debería funcionar.
 
 ## Stack y carpetas
 - backend/  

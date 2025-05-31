@@ -18,5 +18,8 @@
     "url": "https://github.com/limproda/RestaurantIO/issues"
   },
   "homepage": "https://github.com/limproda/RestaurantIO#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
 }
