@@ -18,7 +18,7 @@ describe('Payrolls API', () => {
   });
 
   // Test para la ruta de obtención de nóminas
-  describe('GET /payrolls', () => {
+  describe('GET /api/payrolls', () => {
     it('Debería devolver una lista de nóminas', async () => {
 
       const isoDate = new Date().toISOString(); // Creamos una fecha ISO para las pruebas
@@ -41,7 +41,7 @@ describe('Payrolls API', () => {
       });
 
       // Realizamos la petición GET
-      const res = await request(expressApp).get('/payrolls');
+      const res = await request(expressApp).get('/api/payrolls');
       // Verificamos la respuesta
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
@@ -52,7 +52,7 @@ describe('Payrolls API', () => {
       // Simulamos un error en la base de datos
       Payroll.find.mockImplementation(() => { throw new Error('DB failure'); });
 
-      const res = await request(expressApp).get('/payrolls');
+      const res = await request(expressApp).get('/api/payrolls');
       // Verificamos que se devuelva el error correcto
       expect(res.status).toBe(500);
       expect(res.body.success).toBe(false);
@@ -61,7 +61,7 @@ describe('Payrolls API', () => {
   });
 
   // Test para la ruta de obtención de nóminas de un empleado específico
-  describe('GET /payrolls/employee/:employeeId', () => {
+  describe('GET /api/payrolls/employee/:employeeId', () => {
     it('Debería devolver las nóminas de un empleado específico', async () => {
       const employeeId = 'e1';
       const isoDate = new Date().toISOString();
@@ -83,7 +83,7 @@ describe('Payrolls API', () => {
         sort: jest.fn().mockResolvedValue(mockPayrolls),
       });
 
-      const res = await request(expressApp).get(`/payrolls/employee/${employeeId}`);
+      const res = await request(expressApp).get(`/api/payrolls/employee/${employeeId}`);
       // Verificamos la respuesta
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
@@ -93,7 +93,7 @@ describe('Payrolls API', () => {
     it('Debería devolver 500 en caso de error en la base de datos', async () => {
       // Simulamos un error en la base de datos
       Payroll.find.mockImplementation(() => { throw new Error('DB error'); });
-      const res = await request(expressApp).get('/payrolls/employee/e1');
+      const res = await request(expressApp).get('/api/payrolls/employee/e1');
       // Verificamos el error
       expect(res.status).toBe(500);
       expect(res.body.success).toBe(false);
@@ -102,11 +102,11 @@ describe('Payrolls API', () => {
   });
 
   // Test para la ruta de creación de nóminas
-  describe('POST /payrolls', () => {
+  describe('POST /api/payrolls', () => {
     it('Debería devolver 400 si faltan campos requeridos', async () => {
       // Intentamos crear una nómina sin datos
       const res = await request(expressApp)
-        .post('/payrolls')
+        .post('/api/payrolls')
         .send({});
       // Verificamos el error de campos requeridos
       expect(res.status).toBe(400);
@@ -117,7 +117,7 @@ describe('Payrolls API', () => {
     it('Debería devolver 400 si el mes es inválido', async () => {
       // Intentamos crear una nómina con mes inválido
       const res = await request(expressApp)
-        .post('/payrolls')
+        .post('/api/payrolls')
         .send({ userId: 'u1', month: 13, year: 2025, fileUrl: 'url' });
       // Verificamos el error de mes inválido
       expect(res.status).toBe(400);
@@ -127,7 +127,7 @@ describe('Payrolls API', () => {
     it('Debería devolver 400 si el año es inválido', async () => {
       // Intentamos crear una nómina con año inválido
       const res = await request(expressApp)
-        .post('/payrolls')
+        .post('/api/payrolls')
         .send({ userId: 'u1', month: 5, year: 1999, fileUrl: 'url' });
       // Verificamos el error de año inválido
       expect(res.status).toBe(400);
@@ -152,7 +152,7 @@ describe('Payrolls API', () => {
 
       // Intentamos crear una nómina válida
       const res = await request(expressApp)
-        .post('/payrolls')
+        .post('/api/payrolls')
         .send({ userId: 'u1', month: 5, year: 2025, fileUrl: 'url' });
 
       // Verificamos la creación exitosa
@@ -176,7 +176,7 @@ describe('Payrolls API', () => {
       Payroll.mockImplementation(() => ({ save: saveMock }));
 
       const res = await request(expressApp)
-        .post('/payrolls')
+        .post('/api/payrolls')
         .send({ userId: 'u1', month: 5, year: 2025, fileUrl: 'url' });
 
       // Verificamos el error de guardado
@@ -187,11 +187,11 @@ describe('Payrolls API', () => {
   });
 
   // Test para la ruta de actualización de nóminas
-  describe('DELETE /payrolls/:id', () => {
+  describe('DELETE /api/payrolls/:id', () => {
     it('Debería eliminar una nómina con éxito', async () => {
       // Simulamos el borrado exitoso
       Payroll.findByIdAndDelete.mockResolvedValue({ _id: 'p1' });
-      const res = await request(expressApp).delete('/payrolls/p1');
+      const res = await request(expressApp).delete('/api/payrolls/p1');
       // Verificamos el borrado exitoso
       expect(res.status).toBe(200);
       expect(res.body.success).toBe(true);
@@ -201,7 +201,7 @@ describe('Payrolls API', () => {
     it('Debería devolver 404 si la nómina no se encuentra', async () => {
       // Simulamos que no se encuentra la nómina
       Payroll.findByIdAndDelete.mockResolvedValue(null);
-      const res = await request(expressApp).delete('/payrolls/nonexistent');
+      const res = await request(expressApp).delete('/api/payrolls/nonexistent');
       // Verificamos el error de no encontrado
       expect(res.status).toBe(404);
       expect(res.body.success).toBe(false);
@@ -211,7 +211,7 @@ describe('Payrolls API', () => {
     it('Debería devolver 500 en caso de error al eliminar', async () => {
       // Simulamos un error al borrar
       Payroll.findByIdAndDelete.mockImplementation(() => { throw new Error('Delete error'); });
-      const res = await request(expressApp).delete('/payrolls/p1');
+      const res = await request(expressApp).delete('/api/payrolls/p1');
       // Verificamos el error de borrado
       expect(res.status).toBe(500);
       expect(res.body.success).toBe(false);

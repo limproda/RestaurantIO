@@ -13,7 +13,7 @@ describe("Auth API", () => {
   });
 
   // Test para la ruta de registro
-  describe("POST /signup", () => {
+  describe("POST /api/signup", () => {
     it("Debería ser una creación de cuenta correcta con datos válidos", async () => {
       User.findOne.mockResolvedValue(null); // Simulamos que no existe ningún usuario con ese email
 
@@ -31,7 +31,7 @@ describe("Auth API", () => {
       User.create.mockResolvedValue(savedUser);
 
       // Realizamos la petición de registro con datos válidos
-      const res = await request(expressApp).post("/signup").send({
+      const res = await request(expressApp).post("/api/signup").send({
         name: "User Test",
         lastName: "Test",
         email: "newuser@test.com",
@@ -75,7 +75,7 @@ describe("Auth API", () => {
 
       // Realizamos la petición de login con credenciales correctas
       const res = await request(expressApp)
-        .post("/login")
+        .post("/api/login")
         .send({ email: "test@test.com", password: "password123" });
 
       // Verificamos que el login sea exitoso
@@ -99,7 +99,7 @@ describe("Auth API", () => {
 
       // Intentamos login con credenciales incorrectas
       const res = await request(expressApp)
-        .post("/login")
+        .post("/api/login")
         .send({ email: "wrong@test.com", password: "wrongpassword" });
 
       // Verificamos que se devuelva el error correcto
@@ -111,7 +111,7 @@ describe("Auth API", () => {
     it("Debería devolver un error por credenciales faltantes", async () => {
       // Intentamos login sin proporcionar la contraseña
       const res = await request(expressApp)
-        .post("/login")
+        .post("/api/login")
         .send({ email: "test@test.com" }); // sin password
 
       // Verificamos que se devuelva el error de campos requeridos
