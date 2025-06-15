@@ -36,7 +36,7 @@ export default function WorkingTimePage() {
       
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h6" gutterBottom>
-          Horas trabajadas en el último mes
+          Horas trabajadas en el mes actual
         </Typography>
         <Divider sx={{ mb: 2 }} />
 

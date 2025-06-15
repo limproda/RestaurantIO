@@ -76,7 +76,7 @@ export const getTransactionsSummary = async (req, res) => {
 
     // Calculamos horas extra por bloques de 40 h/semana
     const dayOfMonth = now.getDate();
-    const weekNumber = Math.ceil(dayOfMonth / 7); // Número de semanas completas del mes en curso
+    const weekNumber = Math.floor((dayOfMonth - 1) / 7); // Número de semanas completas del mes en curso
     const regularShiftHours = 40 * weekNumber * 60; // Horas normales de jornada en minutos
     const overtimeMin = Math.max(0, totalMinutes - regularShiftHours); // Horas extras en minutos
     const overtimeHrs = Math.floor(overtimeMin / 60); // Horas extras en horas

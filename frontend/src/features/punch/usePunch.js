@@ -10,7 +10,7 @@ export function usePunch() {
   const actions = {
     clock: {
       run: async () => await clockPunch(),
-      message: (res) => `Fichaje registrado como ${res.punch.type}`,
+      message: (res) => `Fichaje registrado con éxito`,
     },
 
     add: {
