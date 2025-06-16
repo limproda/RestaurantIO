@@ -33,6 +33,8 @@ export default function IncomeForm() {
     handleDelete,
   } = useIncomes();
 
+  dayjs.locale("es");
+
   // Spinner mientras carga el income
   if (loading || !income) {
     return (
@@ -69,6 +71,7 @@ export default function IncomeForm() {
               label="Fecha"
               value={income.date ? dayjs(income.date) : null}
               onChange={handleDateChange("date")}
+              format="DD/MM/YYYY"
               slots={{ textField: PickersTextField }}
               slotProps={{ textField: { fullWidth: true, required: true } }}
             />

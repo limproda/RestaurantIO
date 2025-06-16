@@ -35,6 +35,8 @@ export default function ExpenseForm() {
     handleDelete,
   } = useExpenses();
 
+  dayjs.locale("es");
+
   // Spinner de carga mientras carga el expense
   if (loading || !expense) {
     return (
@@ -71,6 +73,7 @@ export default function ExpenseForm() {
               label="Fecha"
               value={expense.date ? dayjs(expense.date) : null}
               onChange={handleDateChange("date")}
+              format="DD/MM/YYYY"
               slots={{ textField: PickersTextField }}
               slotProps={{ textField: { fullWidth: true } }}
             />
